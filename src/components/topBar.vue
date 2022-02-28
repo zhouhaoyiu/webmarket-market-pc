@@ -3,6 +3,7 @@
     <div class="marketName" v-if="marketInfo">
       欢迎来到{{ marketInfo.marketName }}
     </div>
+    <div class="login">登录/注册</div>
   </div>
 </template>
 
@@ -35,6 +36,15 @@ export default class TopBar extends Vue {
     // color: white;
     margin-left: 40px;
     font-size: 20px;
+  }
+  .login {
+    width: 59px;
+    height: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    // line-height: 18px;
+    cursor: pointer;
   }
 }
 </style>
