@@ -1,9 +1,9 @@
 <template>
   <div class="top-bar">
     <div class="marketName" v-if="marketInfo">
-      欢迎来到{{ marketInfo.marketName }}
+      欢迎来到{{ marketInfo.marketName || "网上商城" }}
     </div>
-    <div class="login">登录/注册</div>
+    <div class="login" @click="login()">登录/注册</div>
   </div>
 </template>
 
@@ -19,6 +19,10 @@ export default class TopBar extends Vue {
     // do something
     const res = await this.axios.get("/marketInfo/getMarketInfo");
     this.marketInfo = this._.cloneDeep(res.data.data[0]);
+  }
+
+  login(): void {
+    this.$router.push("/login");
   }
 }
 </script>
@@ -39,10 +43,12 @@ export default class TopBar extends Vue {
   }
   .login {
     width: 59px;
-    height: 18px;
+    height: 50px;
     font-size: 13px;
     font-weight: 700;
     color: #000;
+    margin-left: auto;
+    margin-right: 30px;
     // line-height: 18px;
     cursor: pointer;
   }
