@@ -2,7 +2,13 @@
   <div class="login">
     <div class="login-content">
       <div class="login-wrapL">
-        <div>欢迎登录</div>
+        <div class="" style="width: 100%; height: 100px">欢迎登录</div>
+        <div class="" style="width: 100%; height: 100px">
+          {{ marketName }}
+        </div>
+        <div style="width: 100%; height: 200px" class="icon">
+          <i class="fas fa-shopping-cart" style="font-size: 80px"></i>
+        </div>
       </div>
       <div class="login-wrapR">
         <div class="login-title">
@@ -18,6 +24,14 @@
             <el-input v-model="passWord" show-password></el-input>
           </div>
         </div>
+        <div>
+          <el-button
+            type="primary"
+            size="medium
+        "
+            >注册</el-button
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -29,8 +43,10 @@ import { Component, Vue } from "vue-property-decorator";
   components: {},
 })
 export default class Login extends Vue {
-  private userName = "雪梅墩";
+  private userName = "";
   private passWord = "";
+
+  private marketName = localStorage.getItem("marketName");
   private login() {
     const res = this.axios.post("/user/login", {
       userName: this.userName, // 必填
@@ -41,6 +57,17 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@keyframes iconSize {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .login {
   width: 100%;
   height: 100%;
@@ -62,18 +89,38 @@ export default class Login extends Vue {
       color: white;
       font-size: 48px;
       display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
       justify-content: center;
       align-self: flex-start;
       align-items: center;
+      text-align: center;
       height: 55%;
       width: 40%;
+      padding-top: 20px;
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: iconSize 4s infinite ease-in-out;
+      }
     }
     .login-wrapR {
       width: 45%;
       height: 100%;
+      padding: 20px;
       background: white;
       border: 1px solid #f0f0f0;
       border-radius: 10px;
+      .login-title {
+        font-size: 24px;
+        height: 50px;
+        line-height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

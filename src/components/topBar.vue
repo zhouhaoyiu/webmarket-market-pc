@@ -8,17 +8,38 @@
 </template>
 
 <script lang="ts">
+import { LoDashStatic } from "lodash";
 import { Component, Vue } from "vue-property-decorator";
-
+type MarketInfo = {
+  marketName: string;
+  marketRecommend: string;
+  marketMeta: string;
+};
 @Component({
   components: {},
 })
 export default class TopBar extends Vue {
   private marketInfo = null;
-  async mounted(): Promise<void> {
-    // do something
+  private goodsClassification = null;
+  private _: LoDashStatic = window._;
+  async getMarketInfo(): Promise<void> {
     const res = await this.axios.get("/marketInfo/getMarketInfo");
-    this.marketInfo = this._.cloneDeep(res.data.data[0]);
+    (this.marketInfo as unknown) = this._.cloneDeep(
+      res.data.data[0]
+    ) as MarketInfo;
+    this.marketInfo &&
+      localStorage.setItem("marketName", (this.marketInfo as any).marketName);
+  }
+  async getGoodsClassification(): Promise<void> {
+    const res = await this.axios.get(
+      "/goodsClassification/getAllClassfication"
+    );
+    this.getGoodsClassification = this._.cloneDeep(res.data.data);
+    this.$store.dispatch("setGoodsClassification", this.getGoodsClassification);
+  }
+  async mounted(): Promise<void> {
+    await this.getMarketInfo();
+    await this.getGoodsClassification();
   }
 
   login(): void {
@@ -32,13 +53,15 @@ export default class TopBar extends Vue {
   height: 50px;
   line-height: 50px;
   font-weight: bold;
-  width: 100%;
-  background: gray;
+  max-width: 1440px;
+  width: 1440px;
+  background: #f7f7f7;
   display: flex;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  // box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.2);
   .marketName {
     // color: white;
-    margin-left: 40px;
+    margin-left: 150px;
     font-size: 20px;
   }
   .login {
@@ -48,7 +71,7 @@ export default class TopBar extends Vue {
     font-weight: 700;
     color: #000;
     margin-left: auto;
-    margin-right: 30px;
+    margin-right: 200px;
     // line-height: 18px;
     cursor: pointer;
   }
