@@ -19,9 +19,13 @@ type MarketInfo = {
   components: {},
 })
 export default class TopBar extends Vue {
-  private marketInfo = null;
-  private goodsClassification = null;
-  private _: LoDashStatic = window._;
+  public marketInfo: MarketInfo = {
+    marketName: "",
+    marketRecommend: "",
+    marketMeta: "",
+  };
+  public goodsClassification = null;
+  public _ = window._;
   async getMarketInfo(): Promise<void> {
     const res = await this.axios.get("/marketInfo/getMarketInfo");
     (this.marketInfo as unknown) = this._.cloneDeep(
@@ -30,16 +34,12 @@ export default class TopBar extends Vue {
     this.marketInfo &&
       localStorage.setItem("marketName", (this.marketInfo as any).marketName);
   }
-  async getGoodsClassification(): Promise<void> {
-    const res = await this.axios.get(
-      "/goodsClassification/getAllClassfication"
-    );
-    this.getGoodsClassification = this._.cloneDeep(res.data.data);
-    this.$store.dispatch("setGoodsClassification", this.getGoodsClassification);
-  }
   async mounted(): Promise<void> {
     await this.getMarketInfo();
-    await this.getGoodsClassification();
+  }
+
+  get markName(): string {
+    return this.marketInfo.marketName || "网上商城";
   }
 
   login(): void {

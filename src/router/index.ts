@@ -13,6 +13,25 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      title: "Home",
+    },
+    children: [
+      {
+        path: "/list:id",
+        name: "List",
+        component: () =>
+          import(/* webpackChunkName: "list" */ "../views/list/index.vue"),
+      },
+      {
+        path: "/detail:id",
+        name: "Detail",
+        component: () =>
+          import(
+            /* webpackChunkName: "product" */ "../views/product/index.vue"
+          ),
+      },
+    ],
   },
   {
     path: "/about",
