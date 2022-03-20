@@ -1,5 +1,5 @@
 <template>
-  <div class="classification-list-background" @mouseleave="resetHoverIndex()">
+  <div class="classification-list-background">
     <div class="classification-list-bar">
       <div
         class="classification-list-box"
@@ -18,10 +18,12 @@
         <GoodsClassificationDeatil
           @ResetHoverIndex="resetHoverIndex"
           v-if="hoverIndex !== -1"
-          :SelectClassification = "GoodsClassificationTree[hoverIndex]"
+          :SelectClassification="GoodsClassificationTree[hoverIndex]"
+          style="max-height: 700px; overflow: hidden"
         />
       </transition>
-      <ShadowMask v-show="hoverIndex !== -1" />
+
+      <ShadowMask  v-if="shadow" @ResetHoverIndex="resetHoverIndex" />
     </div>
   </div>
 </template>
@@ -36,9 +38,17 @@ import ShadowMask from "./shadowMask.vue";
   components: { GoodsClassificationDeatil, ShadowMask },
 })
 export default class ListBar extends Vue {
+  public shadow = false;
+
   @Watch("hoverIndex")
   public onHoverIndexChange(newVal: number, oldVal: number) {
-    console.log("new",newVal,"old", oldVal);
+    if (newVal === -1) {
+      setTimeout(() => {
+        this.shadow = false;
+      }, 500);
+    } else {
+      this.shadow = true;
+    }
   }
   public hoverIndex = -1;
   public setHoverIndex(index: number): void {
@@ -93,13 +103,16 @@ export default class ListBar extends Vue {
     .width-enter-active,
     .width-leave-active {
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      ::v-deep div {
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     }
-    .width-enter {
-      height: 0;
-    }
-    .width-leave-to /* .width-leave-active below version 2.1.8 */ {
-      opacity: 0;
-      height: 0;
+    .width-enter, .width-leave-to /* .width-leave-active below version 2.1.8 */ {
+      // opacity: 0 !important;
+      ::v-deep div {
+        opacity: 0 !important;
+      }
+      max-height: 0px !important;
     }
   }
 }

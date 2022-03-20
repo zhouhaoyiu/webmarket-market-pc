@@ -1,14 +1,20 @@
 <template>
-  <div class="shadow-mask"></div>
+  <div @mouseover="emitResetListBarIndex()" class="shadow-mask"></div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 @Component({
   components: {},
 })
 export default class ShadowMask extends Vue {
+  @Prop({ type: Object }) public SelectClassification: any;
+  public emitResetListBarIndex(): void {
+    this.$emit("ResetHoverIndex");
+  }
+
   mounted() {
     // append to body
     document.body.appendChild(this.$el);
