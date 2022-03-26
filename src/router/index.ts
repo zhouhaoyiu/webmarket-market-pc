@@ -11,6 +11,10 @@ VueRouter.prototype.push = function push(location: never) {
 const routes: Array<RouteConfig> = [
   {
     path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/home",
     name: "Home",
     component: Home,
     meta: {
@@ -18,13 +22,13 @@ const routes: Array<RouteConfig> = [
     },
     children: [
       {
-        path: "/list:id",
+        path: "/list/:id",
         name: "List",
         component: () =>
           import(/* webpackChunkName: "list" */ "../views/list/index.vue"),
       },
       {
-        path: "/detail:id",
+        path: "/detail/:id",
         name: "Detail",
         component: () =>
           import(

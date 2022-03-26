@@ -21,7 +21,7 @@ export default class ShadowMask extends Vue {
   }
   beforeDestroy() {
     // remove from body
-    document.body.removeChild(this.$el);
+    // document.body.removeChild(this.$el);
   }
 }
 </script>

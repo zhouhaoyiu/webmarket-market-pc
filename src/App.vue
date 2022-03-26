@@ -6,16 +6,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import getGoods from "./utils/getGoods";
 import getGoodsClassification from "./utils/getGoodsClassifacation";
 @Component({
   components: {},
 })
 export default class App extends Vue {
-
-  
-
   public mounted() {
     getGoodsClassification();
+    getGoods();
   }
 }
 </script>
