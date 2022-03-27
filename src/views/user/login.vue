@@ -13,7 +13,17 @@
       <div class="login-wrapR">
         <div class="login-title">
           <h3>登录</h3>
-          <h6 style="position:absolute;right:20px;color:#17508C;cursor:pointer">注册</h6>
+          <h6
+            @click="goRegis"
+            style="
+              position: absolute;
+              right: 20px;
+              color: #17508c;
+              cursor: pointer;
+            "
+          >
+            注册
+          </h6>
         </div>
         <div class="login-form">
           <div class="login-form-username">
@@ -58,10 +68,51 @@
         </div>
       </div>
     </div>
+    <el-dialog :visible.sync="regisDialog" title="注册" width="700px" center>
+      <div class="login-form-regis-dialog-content">
+        <div class="login-form-regis-dialog-content-item">
+          <div class="login-form-regis-dialog-content-item-title">
+            <div class="login-form-regis-dialog-content-item-title-txt">
+              用户名
+            </div>
+          </div>
+          <div class="login-form-regis-dialog-content-item-input">
+            <el-input
+              v-model="regisForm.username"
+              placeholder="请输入用户名"
+            ></el-input>
+          </div>
+        </div>
+        <div class="login-form-regis-dialog-content-item">
+          <div class="login-form-regis-dialog-content-item-title">
+            <div class="login-form-regis-dialog-content-item-title-txt">
+              密码
+            </div>
+          </div>
+          <div class="login-form-regis-dialog-content-item-input">
+            <el-input
+              v-model="regisForm.password"
+              placeholder="请输入密码"
+              type="password"
+            ></el-input>
+          </div>
+        </div>
+      </div>
+      <div>
+        <el-button type="primary" @click="cancel()">注册</el-button>
+        <el-button type="primary" @click="submitRegis()">注册</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
+type Result = {
+  code: number;
+  msg: string;
+  data: any;
+};
+
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
@@ -72,12 +123,55 @@ export default class Login extends Vue {
 
   public marketName = localStorage.getItem("marketName");
   public agree = false;
+  public regisDialog = false;
 
-  public login() {
-    const res = this.axios.post("/user/login", {
+  public regisForm = {
+    username: "",
+    password: "",
+  };
+
+  public async login(): Promise<void> {
+    if (!this.agree) {
+      this.$message.error("请先阅读并同意《用户协议》");
+      return;
+    }
+    const res: Result = await this.axios.post("/user/login", {
       userName: this.userName, // 必填
       passWord: this.passWord, // TODO: 加密
     });
+    if (res.code === 0) {
+      localStorage.setItem("userName", res.data.userName);
+      localStorage.setItem("userId", res.data.userId);
+      this.$message.success("登录成功");
+      this.$router.push("/");
+    } else {
+      this.$message.error(res.msg);
+    }
+  }
+
+  public clearRegisInfo(): void {
+    this.regisForm.username = "";
+    this.regisForm.password = "";
+  }
+
+  public goRegis(): void {
+    this.regisDialog = true;
+  }
+
+  public cancel(): void {
+    this.clearRegisInfo();
+    this.regisDialog = false;
+  }
+
+  public async submitRegis() {
+    const res: Result = await this.axios.post("/user/regis", this.regisForm);
+    if (res.code === 0) {
+      this.$message.success("注册成功");
+      this.regisDialog = false;
+      this.clearRegisInfo();
+    } else {
+      this.$message.error(res.msg);
+    }
   }
 }
 </script>
@@ -258,7 +352,8 @@ export default class Login extends Vue {
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            .login-form-other-btn-wechat-txt,.login-form-other-btn-alipay-txt{
+            .login-form-other-btn-wechat-txt,
+            .login-form-other-btn-alipay-txt {
               font-size: 12px;
             }
           }
@@ -266,6 +361,41 @@ export default class Login extends Vue {
             margin-bottom: 10px;
           }
         }
+      }
+    }
+  }
+
+  .login-form-regis-dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .login-form-regis-dialog-content-item {
+      width: 100%;
+      height: 50px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      .login-form-regis-dialog-content-item-title {
+        width: 80px;
+        height: 100%;
+        line-height: 50px;
+        text-align: left;
+      }
+      .login-form-regis-dialog-content-item-input {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        padding: 0 10px;
+        outline: none;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

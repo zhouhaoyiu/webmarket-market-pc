@@ -65,9 +65,11 @@ export default class GoodsClassificationDeatil extends Vue {
     this.$emit("ResetHoverIndex");
   }
   public goPage(SelectClassification: any): void {
-    console.log(SelectClassification);
-    this.$router.push({
-      path: "/home/list/" + SelectClassification.classificationId,
+    this.$emit("SetShadowMask");
+    this.$nextTick(() => {
+      this.$router.push({
+        path: "/home/list/" + SelectClassification.classificationId,
+      });
     });
   }
 

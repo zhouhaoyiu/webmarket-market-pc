@@ -17,13 +17,14 @@
       <transition name="width">
         <GoodsClassificationDeatil
           @ResetHoverIndex="resetHoverIndex"
+          @SetShadowMask="shadow = false"
           v-if="hoverIndex !== -1"
           :SelectClassification="GoodsClassificationTree[hoverIndex]"
           style="max-height: 700px; overflow: hidden"
         />
       </transition>
 
-      <ShadowMask  v-if="shadow" @ResetHoverIndex="resetHoverIndex" />
+      <ShadowMask v-if="shadow" @ResetHoverIndex="resetHoverIndex" />
     </div>
   </div>
 </template>
