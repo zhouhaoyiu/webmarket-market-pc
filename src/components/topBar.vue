@@ -3,7 +3,13 @@
     <div class="marketName" v-if="marketInfo">
       欢迎来到{{ marketInfo.marketName || "网上商城" }}
     </div>
-    <div class="login" @click="login()">登录/注册</div>
+    <div v-if="!userName" class="login" @click="login()">登录/注册</div>
+    <div v-else class="userInfo">
+      <div class="userName-text">欢迎您 {{ userName }}</div>
+      <div class="userName-logout">
+        <el-button type="text" @click="logout()">登出</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,8 +48,17 @@ export default class TopBar extends Vue {
     return this.marketInfo.marketName || "网上商城";
   }
 
+  get userName(): string | undefined {
+    return localStorage.getItem("username") || undefined;
+  }
+
   login(): void {
     this.$router.push("/login");
+  }
+
+  logout(): void {
+    localStorage.removeItem("username");
+    this.$router.go(0);
   }
 }
 </script>
@@ -72,8 +87,28 @@ export default class TopBar extends Vue {
     color: #000;
     margin-left: auto;
     margin-right: 200px;
-    // line-height: 18px;
     cursor: pointer;
+  }
+  .userInfo {
+    width: 400px;
+    height: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    margin-left: auto;
+    margin-right: 0px;
+    display: flex;
+    flex-direction: row;
+    .userName-text {
+      margin-left: 10px;
+      font-size: 14px;
+      color: #999;
+    }
+    .userName-logout {
+      margin-left: 30px;
+      font-size: 16px;
+      color: #000;
+    }
   }
 }
 </style>

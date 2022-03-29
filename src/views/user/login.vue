@@ -35,10 +35,11 @@
             <el-input v-model="passWord" show-password></el-input>
           </div>
           <div class="login-form-btn-common">
-            <button type="primary" size="medium">登录</button>
+            <button type="primary" size="medium" @click="login">登录</button>
           </div>
           <div class="login-form-check">
-            <el-radio style="margin-right: 5px" v-model="agree"> </el-radio>
+            <el-checkbox style="margin-right: 5px" v-model="agree">
+            </el-checkbox>
             <div>
               为了更好的为您提供服务，在使用我们的产品前请您阅读完整版
               <span style="color: #228aff">《隐私政策》</span>
@@ -73,7 +74,7 @@
         <div class="login-form-regis-dialog-content-item">
           <div class="login-form-regis-dialog-content-item-title">
             <div class="login-form-regis-dialog-content-item-title-txt">
-              用户名
+              用户名 <span style="color: red">*</span>
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
@@ -86,7 +87,7 @@
         <div class="login-form-regis-dialog-content-item">
           <div class="login-form-regis-dialog-content-item-title">
             <div class="login-form-regis-dialog-content-item-title-txt">
-              密码
+              密码 <span style="color: red">*</span>
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
@@ -97,9 +98,46 @@
             ></el-input>
           </div>
         </div>
+        <div class="login-form-regis-dialog-content-item">
+          <div class="login-form-regis-dialog-content-item-title">
+            <div class="login-form-regis-dialog-content-item-title-txt">
+              联系电话 <span style="color: red">*</span>
+            </div>
+          </div>
+          <div class="login-form-regis-dialog-content-item-input">
+            <el-input
+              v-model="regisForm.phonenumber"
+              placeholder="请输入联系电话"
+            ></el-input>
+          </div>
+        </div>
+        <div class="login-form-regis-dialog-content-item">
+          <div class="login-form-regis-dialog-content-item-title">
+            <div class="login-form-regis-dialog-content-item-title-txt">
+              性别 <span style="color: red">*</span>
+            </div>
+          </div>
+          <div class="login-form-regis-dialog-content-item-radio">
+            <el-radio v-model="regisForm.gender" label="1"> 男 </el-radio>
+            <el-radio v-model="regisForm.gender" label="0"> 女 </el-radio>
+          </div>
+        </div>
+        <div class="login-form-regis-dialog-content-item">
+          <div class="login-form-regis-dialog-content-item-title">
+            <div class="login-form-regis-dialog-content-item-title-txt">
+              收货地址 <span style="color: red">*</span>
+            </div>
+          </div>
+          <div class="login-form-regis-dialog-content-item-input">
+            <el-input
+              v-model="regisForm.address"
+              placeholder="请输入收货地址"
+            ></el-input>
+          </div>
+        </div>
       </div>
-      <div>
-        <el-button type="primary" @click="cancel()">注册</el-button>
+      <div class="login-form-regis-dialog-submit">
+        <el-button @click="cancel()">取消</el-button>
         <el-button type="primary" @click="submitRegis()">注册</el-button>
       </div>
     </el-dialog>
@@ -128,6 +166,9 @@ export default class Login extends Vue {
   public regisForm = {
     username: "",
     password: "",
+    gender: "1",
+    phonenumber: "",
+    address: "",
   };
 
   public async login(): Promise<void> {
@@ -136,22 +177,25 @@ export default class Login extends Vue {
       return;
     }
     const res: Result = await this.axios.post("/user/login", {
-      userName: this.userName, // 必填
-      passWord: this.passWord, // TODO: 加密
+      username: this.userName, // 必填
+      password: this.passWord, // TODO: 加密
     });
-    if (res.code === 0) {
-      localStorage.setItem("userName", res.data.userName);
-      localStorage.setItem("userId", res.data.userId);
+    if (res.data.code === 0) {
+      localStorage.setItem("username", res.data.data[0].username);
+      localStorage.setItem("useruuid", res.data.data[0].useruuid);
       this.$message.success("登录成功");
       this.$router.push("/");
     } else {
-      this.$message.error(res.msg);
+      this.$message.error(res.data.msg);
     }
   }
 
   public clearRegisInfo(): void {
     this.regisForm.username = "";
     this.regisForm.password = "";
+    this.regisForm.phonenumber = "";
+    this.regisForm.address = "";
+    this.regisForm.gender = "1";
   }
 
   public goRegis(): void {
@@ -164,13 +208,36 @@ export default class Login extends Vue {
   }
 
   public async submitRegis() {
-    const res: Result = await this.axios.post("/user/regis", this.regisForm);
-    if (res.code === 0) {
+    if (this.regisForm.username === "") {
+      this.$message.error("用户名不能为空");
+      return;
+    }
+    if (this.regisForm.password === "") {
+      this.$message.error("密码不能为空");
+      return;
+    }
+    if (this.regisForm.phonenumber === "") {
+      this.$message.error("联系电话不能为空");
+      return;
+    }
+    if (this.regisForm.address === "") {
+      this.$message.error("收货地址不能为空");
+      return;
+    }
+    const res: Result = await this.axios.post("/user/userRegis", {
+      username: this.regisForm.username,
+      password: this.regisForm.password,
+      gender: this.regisForm.gender === "1" ? true : false,
+      phonenumber: this.regisForm.phonenumber,
+      address: this.regisForm.address,
+    });
+    console.log(res);
+    if (res.data.code === 0) {
       this.$message.success("注册成功");
       this.regisDialog = false;
       this.clearRegisInfo();
     } else {
-      this.$message.error(res.msg);
+      this.$message.error(res.data.msg);
     }
   }
 }
@@ -397,7 +464,29 @@ export default class Login extends Vue {
         justify-content: center;
         align-items: center;
       }
+      .login-form-regis-dialog-content-item-radio {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        padding: 0 10px;
+        outline: none;
+        font-size: 14px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+      }
     }
+  }
+  .login-form-regis-dialog-submit {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 0 10px;
+    outline: none;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
