@@ -4,3 +4,5 @@ export const SET_GOODS_CLASSIFICATION_LIST = 'setGoodsClassificationList';
 export const SET_GOODS_CLASSIFICATION_TREE = 'setGoodsClassificationTree';
 // 设置商品列表  
 export const SET_GOODS_LIST = 'setGoodsList';
+
+export const SET_SHOPPING_CAR = 'setShoppingCar';

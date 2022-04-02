@@ -4,3 +4,4 @@
 export const getGoodsClassificationList = (state: any): any => state.goodsClassificationList;
 export const getGoodsClassificationTree = (state: any): any => state.goodsClassificationTree;
 export const getGoodsList = (state: any): any => state.goodsList;
+export const getShoppingCar = (state: any): any => state.shoppingCar;

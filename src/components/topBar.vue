@@ -1,11 +1,22 @@
 <template>
   <div class="top-bar">
-    <div class="marketName" v-if="marketInfo">
+    <div class="marketName" v-if="marketInfo" @click="$router.push('/home')">
       欢迎来到{{ marketInfo.marketName || "网上商城" }}
+    </div>
+    <div
+      v-if="$route.fullPath !== '/home'"
+      @click="$router.push('/home')"
+      class="gohome"
+    >
+      回到首页
     </div>
     <div v-if="!userName" class="login" @click="login()">登录/注册</div>
     <div v-else class="userInfo">
-      <div class="userName-text">欢迎您 {{ userName }}</div>
+      <div class="userName-text" @click="openInfoDialog">欢迎您 {{ userName }}</div>
+      <div class="user-shoppingCar" @click="goShoppingCar()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="shoppingCar-text">购物车</div>
+      </div>
       <div class="userName-logout">
         <el-button type="text" @click="logout()">登出</el-button>
       </div>
@@ -32,6 +43,8 @@ export default class TopBar extends Vue {
   };
   public goodsClassification = null;
   public _ = window._;
+  public userInfoDialogVisible = false;
+
   async getMarketInfo(): Promise<void> {
     const res = await this.axios.get("/marketInfo/getMarketInfo");
     (this.marketInfo as unknown) = this._.cloneDeep(
@@ -44,6 +57,15 @@ export default class TopBar extends Vue {
     await this.getMarketInfo();
   }
 
+  goShoppingCar(): void {
+    this.$router.push({
+      path: "/home/shoppingCar",
+    });
+  }
+  openInfoDialog(){
+    this.userInfoDialogVisible = true;
+  }
+
   get markName(): string {
     return this.marketInfo.marketName || "网上商城";
   }
@@ -52,12 +74,18 @@ export default class TopBar extends Vue {
     return localStorage.getItem("username") || undefined;
   }
 
+  get shoppingCarNum(): number {
+    return this.$store.getters.getShoppingCar.length || 0;
+  }
+
   login(): void {
     this.$router.push("/login");
+    this.$store.dispatch("setShoppingCar", []);
   }
 
   logout(): void {
     localStorage.removeItem("username");
+    this.$store.dispatch("setShoppingCar", []);
     this.$router.go(0);
   }
 }
@@ -78,6 +106,12 @@ export default class TopBar extends Vue {
     // color: white;
     margin-left: 150px;
     font-size: 20px;
+    cursor: pointer;
+  }
+  .gohome {
+    margin-left: 20px;
+    font-size: 12px;
+    cursor: pointer;
   }
   .login {
     width: 59px;
@@ -104,9 +138,19 @@ export default class TopBar extends Vue {
       font-size: 14px;
       color: #999;
     }
+    .user-shoppingCar {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin-left: 30px;
+      cursor: pointer;
+      .fas {
+        margin-right: 10px;
+      }
+    }
     .userName-logout {
       margin-left: 30px;
-      font-size: 16px;
+      font-size: 14px;
       color: #000;
     }
   }

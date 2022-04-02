@@ -21,18 +21,29 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Home",
     },
-    children: [],
-  },
-  {
-    path: "/list",
-    name: "List",
-    component: List,
-  },
-  {
-    path: "/detail/:id",
-    name: "Detail",
-    component: () =>
-      import(/* webpackChunkName: "product" */ "../views/product/index.vue"),
+    children: [
+      {
+        path: "list",
+        name: "List",
+        component: List,
+      },
+      {
+        path: "detail/:id",
+        name: "Detail",
+        component: () =>
+          import(
+            /* webpackChunkName: "product" */ "../views/product/index.vue"
+          ),
+      },
+      {
+        path: "ShoppingCar",
+        name: "ShoppingCar",
+        component: () =>
+          import(
+            /* webpackChunkName: "shoppingCar" */ "../views/shoppingCar/index.vue"
+          ),
+      },
+    ],
   },
   {
     path: "/about",
@@ -43,6 +54,7 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+
   {
     path: "/login",
     name: "Login",

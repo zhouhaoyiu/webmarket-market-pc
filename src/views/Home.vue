@@ -1,15 +1,17 @@
 <template>
   <div class="home">
     <TopBar></TopBar>
-    <ListBar></ListBar>
-    <div class="carousel">
+    <ListBar v-if="$route.fullPath === '/home'"></ListBar>
+
+    <div v-if="$route.fullPath === '/home'" class="carousel">
       <el-carousel height="640px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
       </el-carousel>
     </div>
-    <RecommendGoods></RecommendGoods>
+    <RecommendGoods v-if="$route.fullPath === '/home'"></RecommendGoods>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -68,7 +68,7 @@ export default class GoodsClassificationDeatil extends Vue {
     this.$emit("SetShadowMask");
     this.$nextTick(() => {
       this.$router.push({
-        path: "/list",
+        path: "/home/list",
         query: {
           classificationId: SelectClassification.classificationId,
         },
