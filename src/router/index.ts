@@ -28,7 +28,7 @@ const routes: Array<RouteConfig> = [
         component: List,
       },
       {
-        path: "detail/:id",
+        path: "detail",
         name: "Detail",
         component: () =>
           import(

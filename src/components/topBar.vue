@@ -12,7 +12,9 @@
     </div>
     <div v-if="!userName" class="login" @click="login()">登录/注册</div>
     <div v-else class="userInfo">
-      <div class="userName-text" @click="openInfoDialog">欢迎您 {{ userName }}</div>
+      <div class="userName-text" @click="openInfoDialog()">
+        欢迎您 {{ userName }}
+      </div>
       <div class="user-shoppingCar" @click="goShoppingCar()">
         <i class="fas fa-shopping-cart"></i>
         <div class="shoppingCar-text">购物车</div>
@@ -21,11 +23,18 @@
         <el-button type="text" @click="logout()">登出</el-button>
       </div>
     </div>
+    <el-dialog
+      title="个人信息"
+      :visible.sync="userInfoDialogVisible"
+      width="30%"
+      center
+    >
+      <div>123</div>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { LoDashStatic } from "lodash";
 import { Component, Vue } from "vue-property-decorator";
 type MarketInfo = {
   marketName: string;
@@ -62,7 +71,7 @@ export default class TopBar extends Vue {
       path: "/home/shoppingCar",
     });
   }
-  openInfoDialog(){
+  openInfoDialog() {
     this.userInfoDialogVisible = true;
   }
 
@@ -137,16 +146,32 @@ export default class TopBar extends Vue {
       margin-left: 10px;
       font-size: 14px;
       color: #999;
+      cursor: pointer;
+    }
+    .userName-text:hover {
+      color: #333;
     }
     .user-shoppingCar {
       display: flex;
       align-items: center;
       font-size: 16px;
+      font-weight: normal;
       margin-left: 30px;
+      border: 1px solid black;
+      border-radius: 10px;
+      height: 10px;
+      margin-top: auto;
+      margin-bottom: auto;
+      padding: 15px 10px;
       cursor: pointer;
       .fas {
         margin-right: 10px;
       }
+    }
+    .user-shoppingCar:hover {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #f7f7f7;
     }
     .userName-logout {
       margin-left: 30px;

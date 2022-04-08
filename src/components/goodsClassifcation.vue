@@ -29,6 +29,7 @@
               class="goods-list-item"
               v-for="good in GoodsList"
               :key="good.goodId"
+              @click="goDetail(good)"
             >
               {{ good.goodName }}
             </div>
@@ -61,9 +62,11 @@ export default class GoodsClassificationDeatil extends Vue {
   }
 
   @Prop({ type: Object }) public SelectClassification: any;
+
   public emitResetListBarIndex(): void {
     this.$emit("ResetHoverIndex");
   }
+
   public goPage(SelectClassification: any): void {
     this.$emit("SetShadowMask");
     this.$nextTick(() => {
@@ -71,6 +74,18 @@ export default class GoodsClassificationDeatil extends Vue {
         path: "/home/list",
         query: {
           classificationId: SelectClassification.classificationId,
+        },
+      });
+    });
+  }
+
+  public goDetail(good: any): void {
+    this.$emit("SetShadowMask");
+    this.$nextTick(() => {
+      this.$router.push({
+        path: "/home/detail",
+        query: {
+          goodId: good.goodId,
         },
       });
     });
