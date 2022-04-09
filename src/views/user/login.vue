@@ -183,6 +183,7 @@ export default class Login extends Vue {
     if (res.data.code === 0) {
       localStorage.setItem("username", res.data.data[0].username);
       localStorage.setItem("useruuid", res.data.data[0].useruuid);
+      this.$store.commit("setUserInfo", res.data.data[0]);
       this.$message.success("登录成功");
       this.$router.push("/");
     } else {

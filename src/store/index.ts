@@ -6,30 +6,37 @@ import {
   goodsClassificationTree,
   goodsList,
   shoppingCar,
+  userInfo,
 } from "./state";
 import {
   getGoodsClassificationList,
   getGoodsClassificationTree,
   getGoodsList,
   getShoppingCar,
+  getUserInfo,
 } from "./getters";
 import {
+  clearShoppingCar,
   setGoodsClassificationList,
   setGoodsClassificationTree,
   setGoodsList,
   setShoppingCar,
+  setUserInfo,
 } from "./mutations";
 import {
   GET_GOODS_CLASSIFICATION_LIST,
   GET_GOODS_CLASSIFICATION_TREE,
   GET_GOODS_LIST,
   GET_SHOPPING_CAR,
+  GET_USER_INFO,
 } from "./type/getter-type";
 import {
+  CLEAR_SHOPPING_CAR,
   SET_GOODS_CLASSIFICATION_LIST,
   SET_GOODS_CLASSIFICATION_TREE,
   SET_GOODS_LIST,
   SET_SHOPPING_CAR,
+  SET_USER_INFO,
 } from "./type/mutation-type";
 
 Vue.use(Vuex);
@@ -38,20 +45,24 @@ export default new Vuex.Store({
   state: {
     goodsClassificationList: goodsClassificationList,
     goodsClassificationTree: goodsClassificationTree,
-    goodsList,
-    shoppingCar,
+    goodsList: goodsList,
+    shoppingCar: shoppingCar,
+    userInfo: userInfo,
   },
   getters: {
     [GET_GOODS_CLASSIFICATION_LIST]: getGoodsClassificationList,
     [GET_GOODS_CLASSIFICATION_TREE]: getGoodsClassificationTree,
     [GET_GOODS_LIST]: getGoodsList,
     [GET_SHOPPING_CAR]: getShoppingCar,
+    [GET_USER_INFO]: getUserInfo,
   },
   mutations: {
     [SET_GOODS_CLASSIFICATION_LIST]: setGoodsClassificationList,
     [SET_GOODS_CLASSIFICATION_TREE]: setGoodsClassificationTree,
     [SET_GOODS_LIST]: setGoodsList,
     [SET_SHOPPING_CAR]: setShoppingCar,
+    [SET_USER_INFO]: setUserInfo,
+    [CLEAR_SHOPPING_CAR]:clearShoppingCar
   },
   actions: {},
   plugins: [createVuexAlong()],

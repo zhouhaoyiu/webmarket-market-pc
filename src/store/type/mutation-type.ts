@@ -6,3 +6,7 @@ export const SET_GOODS_CLASSIFICATION_TREE = 'setGoodsClassificationTree';
 export const SET_GOODS_LIST = 'setGoodsList';
 
 export const SET_SHOPPING_CAR = 'setShoppingCar';
+
+export const SET_USER_INFO = 'setUserInfo';
+
+export const CLEAR_SHOPPING_CAR = 'clearShoppingCar';
