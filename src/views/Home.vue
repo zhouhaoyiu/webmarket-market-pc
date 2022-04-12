@@ -5,8 +5,11 @@
 
     <div v-if="$route.fullPath === '/home'" class="carousel">
       <el-carousel height="630px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3 class="small">{{ item }}</h3>
+        <el-carousel-item
+          v-for="(image, index) in marketInfo.marketImages.split(',')"
+          :key="index"
+        >
+          <img :src="`http://localhost:8090/images/${image}`" alt="" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -24,7 +27,19 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: { TopBar, ListBar, RecommendGoods },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  async getCarousel(): Promise<void> {
+    const res = await this.axios.get("/marketInfo/getMarketInfo");
+    const data = res.data.data;
+    this.$store.commit("setMarketInfo", data[0]);
+  }
+  get marketInfo() {
+    return this.$store.state.marketInfo;
+  }
+  async created() {
+    await this.getCarousel();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -49,14 +64,6 @@ export default class Home extends Vue {}
       opacity: 0.75;
       line-height: 150px;
       margin: 0;
-    }
-
-    .el-carousel__item:nth-child(2n) {
-      background-color: #99a9bf;
-    }
-
-    .el-carousel__item:nth-child(2n + 1) {
-      background-color: #d3dce6;
     }
   }
   // flex-wrap: wrap;

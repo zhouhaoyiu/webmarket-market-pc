@@ -8,3 +8,5 @@ export const GET_GOODS_LIST = 'getGoodsList';
 export const GET_SHOPPING_CAR = 'getShoppingCar';
 
 export const GET_USER_INFO = 'getUserInfo';
+
+export const GET_MARKET_INFO = 'getMarketInfo';

@@ -13,34 +13,66 @@
       </div>
       <div class="product-info">
         <div class="product-info-title">
-          <h1>{{ goodInfo.goodName }}</h1>
-          <h2>{{ goodInfo.goodDesc }}</h2>
+          {{ goodInfo.goodName }}
         </div>
-        <div class="product-info-price">
-          <h1>￥{{ goodInfo.goodPrice }}</h1>
+        <div class="product-info-yh">
+          <div class="product-info-yh-title">商城优势</div>
+          <div class="product-info-yh-text">
+            <span class="pdp-product-yh-txt">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEFBQUJCQkODg4QEBATExMVFRUeHh46Ojo/Pz9JSUlZWVlaWlpqampra2t3d3d9fX2QkJCRkZGgoKC1tbW3t7fDw8PU1NTY2Njh4eHl5eXn5+f19fX6+vr9/f3+/v7///8rw5LlAAAACnRSTlMAJD1DmZq/1+3yE/35XQAAAJFJREFUGNNtkEcWgzAQQ0UMGP/03nsDfP/7ZWFCyvPfjRYaSZIkmdQ6Z1OjN0lOQ54EpVPQUnQkKflSoEgk5fyQS4Y/jLLPsXnMgEwWGA0AVnU5BawccL9NYFFVSwAnBxz8dTwv6zVBskDv6C9Pvw2ONtj3z97vmidpE2J42nfbEJGosUKR2rFxJJnMOmezMOELZn4MwJNL3HYAAAAASUVORK5CYII="
+                class="fw_icon"
+              />
+              <span> 以旧换新 </span>
+            </span>
+            <span class="pdp-product-yh-txt">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEFBQUJCQkODg4QEBATExMVFRUeHh46Ojo/Pz9JSUlZWVlaWlpqampra2t3d3d9fX2QkJCRkZGgoKC1tbW3t7fDw8PU1NTY2Njh4eHl5eXn5+f19fX6+vr9/f3+/v7///8rw5LlAAAACnRSTlMAJD1DmZq/1+3yE/35XQAAAJFJREFUGNNtkEcWgzAQQ0UMGP/03nsDfP/7ZWFCyvPfjRYaSZIkmdQ6Z1OjN0lOQ54EpVPQUnQkKflSoEgk5fyQS4Y/jLLPsXnMgEwWGA0AVnU5BawccL9NYFFVSwAnBxz8dTwv6zVBskDv6C9Pvw2ONtj3z97vmidpE2J42nfbEJGosUKR2rFxJJnMOmezMOELZn4MwJNL3HYAAAAASUVORK5CYII="
+                class="fw_icon"
+              />
+              <span>管家服务</span></span
+            ><span class="pdp-product-yh-txt"
+              ><img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEFBQUJCQkODg4QEBATExMVFRUeHh46Ojo/Pz9JSUlZWVlaWlpqampra2t3d3d9fX2QkJCRkZGgoKC1tbW3t7fDw8PU1NTY2Njh4eHl5eXn5+f19fX6+vr9/f3+/v7///8rw5LlAAAACnRSTlMAJD1DmZq/1+3yE/35XQAAAJFJREFUGNNtkEcWgzAQQ0UMGP/03nsDfP/7ZWFCyvPfjRYaSZIkmdQ6Z1OjN0lOQ54EpVPQUnQkKflSoEgk5fyQS4Y/jLLPsXnMgEwWGA0AVnU5BawccL9NYFFVSwAnBxz8dTwv6zVBskDv6C9Pvw2ONtj3z97vmidpE2J42nfbEJGosUKR2rFxJJnMOmezMOELZn4MwJNL3HYAAAAASUVORK5CYII="
+                class="fw_icon"
+              />
+              <span>7天无理由退货</span></span
+            ><span class="pdp-product-yh-txt"
+              ><img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEFBQUJCQkODg4QEBATExMVFRUeHh46Ojo/Pz9JSUlZWVlaWlpqampra2t3d3d9fX2QkJCRkZGgoKC1tbW3t7fDw8PU1NTY2Njh4eHl5eXn5+f19fX6+vr9/f3+/v7///8rw5LlAAAACnRSTlMAJD1DmZq/1+3yE/35XQAAAJFJREFUGNNtkEcWgzAQQ0UMGP/03nsDfP/7ZWFCyvPfjRYaSZIkmdQ6Z1OjN0lOQ54EpVPQUnQkKflSoEgk5fyQS4Y/jLLPsXnMgEwWGA0AVnU5BawccL9NYFFVSwAnBxz8dTwv6zVBskDv6C9Pvw2ONtj3z97vmidpE2J42nfbEJGosUKR2rFxJJnMOmezMOELZn4MwJNL3HYAAAAASUVORK5CYII="
+                class="fw_icon"
+              />
+              <span>官方正品</span></span
+            ><span class="pdp-product-yh-txt"
+              ><img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEFBQUJCQkODg4QEBATExMVFRUeHh46Ojo/Pz9JSUlZWVlaWlpqampra2t3d3d9fX2QkJCRkZGgoKC1tbW3t7fDw8PU1NTY2Njh4eHl5eXn5+f19fX6+vr9/f3+/v7///8rw5LlAAAACnRSTlMAJD1DmZq/1+3yE/35XQAAAJFJREFUGNNtkEcWgzAQQ0UMGP/03nsDfP/7ZWFCyvPfjRYaSZIkmdQ6Z1OjN0lOQ54EpVPQUnQkKflSoEgk5fyQS4Y/jLLPsXnMgEwWGA0AVnU5BawccL9NYFFVSwAnBxz8dTwv6zVBskDv6C9Pvw2ONtj3z97vmidpE2J42nfbEJGosUKR2rFxJJnMOmezMOELZn4MwJNL3HYAAAAASUVORK5CYII="
+                class="fw_icon"
+              />
+              <span>免费包邮</span></span
+            >
+          </div>
         </div>
-        <div>
-          <div>数量</div>
+        <div class="product-info-price">￥{{ goodInfo.goodPrice }}</div>
+        <div class="product-info-order-number">
+          <div class="product-info-order-number-title">数量</div>
           <div>
             <el-input-number v-model="orderNumber"></el-input-number>
           </div>
         </div>
-        <div>
-          <div>配送至</div>
-          <div>{{ $store.state.userInfo.address }}</div>
+        <div class="product-info-order-address">
+          <div class="product-info-order-address-title">配送至</div>
+          <div class="address">{{ $store.state.userInfo.address }}</div>
         </div>
         <div class="product-info-buy">
-          <el-button type="primary" size="large" @click="addCart">
+          <button class="product-info-buy-btn" style="background: #2189ff90;" @click="addCart">
             加入购物车
-          </el-button>
-          <el-button type="primary" size="large" @click="buy()">
-            立即购买
-          </el-button>
+          </button>
+          <button class="product-info-buy-btn" style="background: #2189ff" @click="buy()">立即购买</button>
         </div>
       </div>
     </div>
     <div class="product-bottom">
-      <div v-if="goodInfo.goodDescribeImages.length">
+      <div class="product-bottom-pic-desc" v-if="goodInfo.goodDescribeImages.length">
         <div
           v-for="(imageDesc, index) in goodInfo.goodDescribeImages.split(',')"
           :key="index"
@@ -48,8 +80,8 @@
           <img :src="`http://localhost:8090/images/${imageDesc}`" alt="" />
         </div>
       </div>
-      <div v-else>
-        <div>暂无图片</div>
+      <div class="product-bottom-pic-null" v-else>
+        <span>暂无图片</span>
       </div>
     </div>
   </div>
@@ -111,7 +143,6 @@ export default class Product extends Vue {
 
   async mounted() {
     const logDate = dayjs().format("YYYY-MM-DD");
-    console.log(this.gid);
     // const res = await this.axios.post("/log/add", {
     //   userId: this.$store.state.userInfo.userId,
     //   logDate,
@@ -124,31 +155,35 @@ export default class Product extends Vue {
 
 <style lang="scss" scoped>
 .product {
-  background: red;
   width: 1440px;
   max-width: 1440px;
   height: 100%;
   margin: auto;
   overflow-x: hidden;
   overflow-y: auto;
+
   .product-top {
     width: 100%;
     height: 630px;
     background: #fff;
     display: flex;
     flex-direction: row;
+
     .product-images {
       width: 50%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+
       .el-carousel {
         width: 800px;
         height: 600px;
+
         .el-carousel__container {
           width: 100%;
           height: 100%;
+
           img {
             width: 100%;
             height: 100%;
@@ -157,11 +192,126 @@ export default class Product extends Vue {
         }
       }
     }
+
     .product-info {
       width: 50%;
-      height: 100%;
+      height: 70%;
+      margin: auto;
       padding: 15px;
+      display: flex;
+      flex-direction: column;
+      // justify-content: space-between;
+      font-size: 24px;
       background: #fff;
+
+      .product-info-title {
+        font-size: 36px;
+        font-weight: 700;
+      }
+
+      .product-info-yh {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #666;
+        .product-info-yh-title {
+          width: 80px;
+        }
+
+        .product-info-yh-text {
+          display: flex;
+          flex-wrap: wrap;
+          margin-left: 20px;
+          .pdp-product-yh-txt {
+            img {
+              margin: 0px 5px;
+            }
+            margin-left: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 18px;
+            line-height: 24px;
+            color: #2189ff;
+          }
+        }
+      }
+
+      .product-info-price {
+        padding-top: 10px;
+        padding-right: 15px;
+        text-align: right;
+        font-size: 28px;
+        font-weight: 700;
+        color: #2189ff;
+      }
+
+      .product-info-order-number {
+        display: flex;
+        align-items: center;
+        padding-top: 30px;
+        padding-right: 15px;
+
+        .product-info-order-number-title {
+          width: 120px;
+        }
+      }
+
+      .product-info-order-address {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+
+        .product-info-order-address-title {
+          width: 120px;
+        }
+
+        .address {
+          font-size: 16px;
+          line-height: 18px;
+          color: rgb(51, 51, 51);
+          border: 1px solid #2189ff;
+          border-radius: 10px;
+          padding: 10px 20px;
+        }
+      }
+      .product-info-buy {
+        display: flex;
+        align-items: center;
+        padding-top: 80px;
+        .product-info-buy-btn {
+          margin-right: 20px;
+          width: 120px;
+          height: 40px;
+          
+          color: #fff;
+          border:none;
+          border-radius: 20px;
+          font-size: 18px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .product-bottom{
+    width: 100%;
+    height: auto;
+    min-height: calc(100% - 630px);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .product-bottom-pic-desc{
+      font-size: 0;
+    }
+    .product-bottom-pic-null{
+      font-size: 32px;
+      color: #666;
     }
   }
 }

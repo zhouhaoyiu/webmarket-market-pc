@@ -10,12 +10,25 @@ import dayjs from "dayjs";
   components: {},
 })
 export default class List extends Vue {
+  public gid = -1;
+
+  created() {
+    if (!localStorage.getItem("useruuid")) {
+      this.$router.push("/login");
+    }
+    this.gid = Number(this.$route.query.classificationId) ?? -1;
+  }
+
+  get GoodsList() {
+    return this.$store.getters.getGoodsList.filter((item: any) => {
+      return item.classificationId === this.gid;
+    });
+  }
+
   async mounted() {
     console.log(this.$route);
-    const gid = this.$route.query.classificationId
-    const logDate = dayjs().format("YYYY-MM-DD")
+    const logDate = dayjs().format("YYYY-MM-DD");
     // if (localStorage.getItem("useruuid")) {
-    //   console.log("List mounted");
     //   const res = await this.axios.post("/userLog/addUserLog", {
     //     useruuid: localStorage.getItem("useruuid"),
     //     type: "list",

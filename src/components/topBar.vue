@@ -28,8 +28,60 @@
       :visible.sync="userInfoDialogVisible"
       width="30%"
       center
+      class="userInfo-dialog"
     >
-      <div>123</div>
+      <div>
+        <!-- <div
+          v-for="[key, value] of Object.entries($store.state.userInfo)"
+          :key="key"
+          style="display: flex"
+        >
+          <div style="font-size: 20px">{{ key }}</div>
+          <div>{{ value }}</div>
+        </div> -->
+        <div class="userInfo-dialog-line">
+          <div class="userInfo-dialog-line-left">用户名</div>
+          <div class="userInfo-dialog-line-right">{{ userInfo.username }}</div>
+        </div>
+        <div class="userInfo-dialog-line">
+          <div class="userInfo-dialog-line-left">性别</div>
+          <div class="userInfo-dialog-line-right">
+            {{ userInfo.username ? "男" : "女" }}
+          </div>
+        </div>
+        <div class="userInfo-dialog-line">
+          <div class="userInfo-dialog-line-left">电话号码</div>
+          <div class="userInfo-dialog-line-right">
+            <div v-if="!userInfoEditStatus">
+              {{ userInfo.phonenumber }}
+            </div>
+            <el-input v-else v-model="setUserInfoData.phonenumber"></el-input>
+          </div>
+        </div>
+        <div class="userInfo-dialog-line">
+          <div class="userInfo-dialog-line-left">地址</div>
+          <div class="userInfo-dialog-line-right">
+            <div v-if="!userInfoEditStatus">{{ userInfo.address }}</div>
+            <el-input v-else v-model="setUserInfoData.address"></el-input>
+          </div>
+        </div>
+      </div>
+      <div class="userInfo-dialog-btns">
+        <el-button
+          class="userInfo-dialog-btn"
+          type="primary"
+          @click="userInfoEditStatus = true"
+          v-if="!userInfoEditStatus"
+        >
+          编辑信息
+        </el-button>
+        <div class="userInfo-dialog-btn" v-else>
+          <el-button @click="userInfoEditStatus = false"> 取消 </el-button>
+          <el-button type="primary" @click="userInfoEditStatus = false">
+            保存
+          </el-button>
+        </div>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -50,9 +102,16 @@ export default class TopBar extends Vue {
     marketRecommend: "",
     marketMeta: "",
   };
+
+  public setUserInfoData = {
+    phonenumber: "",
+    address: "",
+  };
+
   public goodsClassification = null;
   public _ = window._;
   public userInfoDialogVisible = false;
+  public userInfoEditStatus = false;
 
   async getMarketInfo(): Promise<void> {
     const res = await this.axios.get("/marketInfo/getMarketInfo");
@@ -64,6 +123,8 @@ export default class TopBar extends Vue {
   }
   async mounted(): Promise<void> {
     await this.getMarketInfo();
+    this.setUserInfoData.phonenumber = this.userInfo.phonenumber;
+    this.setUserInfoData.address = this.userInfo.address;
   }
 
   goShoppingCar(): void {
@@ -85,6 +146,10 @@ export default class TopBar extends Vue {
 
   get shoppingCarNum(): number {
     return this.$store.getters.getShoppingCar.length || 0;
+  }
+
+  get userInfo(): Record<string, string> {
+    return this.$store.state.userInfo;
   }
 
   login(): void {
@@ -177,6 +242,32 @@ export default class TopBar extends Vue {
       margin-left: 30px;
       font-size: 14px;
       color: #000;
+    }
+  }
+  .userInfo-dialog {
+    .userInfo-dialog-line {
+      display: flex;
+      // justify-content: space-between;
+      margin-bottom: 10px;
+      .userInfo-dialog-line-left {
+        font-size: 18px;
+        color: #999;
+        line-height: 30px;
+      }
+      .userInfo-dialog-line-right {
+        margin-left: 20px;
+        font-size: 22px;
+        color: #333;
+        line-height: 30px;
+      }
+    }
+    .userInfo-dialog-btns {
+      display: flex;
+      justify-content: end;
+      .userInfo-dialog-btn {
+        margin-left: auto;
+        margin-right: 20px;
+      }
     }
   }
 }

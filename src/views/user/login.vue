@@ -232,7 +232,6 @@ export default class Login extends Vue {
       phonenumber: this.regisForm.phonenumber,
       address: this.regisForm.address,
     });
-    console.log(res);
     if (res.data.code === 0) {
       this.$message.success("注册成功");
       this.regisDialog = false;
