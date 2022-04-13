@@ -12,6 +12,7 @@
     </div>
     <div v-if="!userName" class="login" @click="login()">登录/注册</div>
     <div v-else class="userInfo">
+      <div class="user-order">我的订单</div>
       <div class="userName-text" @click="openInfoDialog()">
         欢迎您 {{ userName }}
       </div>

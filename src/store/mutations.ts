@@ -20,7 +20,6 @@ export const setGoodsList = function (state: any, list: any): void {
 };
 
 export const setShoppingCar = function (state: any, list: any): void {
-  
   let flag = true;
   state.shoppingCar.forEach((item: any) => {
     if (item.goodId === list.goodId) {
@@ -28,8 +27,12 @@ export const setShoppingCar = function (state: any, list: any): void {
       flag = false;
     }
   });
-  flag && state.shoppingCar.push(list);
+  flag && state.shoppingCar.push({ checked: false, ...list });
   // console.log(JSON.stringify(state.shoppingCar, null, 2));
+};
+
+export const updateShoppingCar = function (state: any, list: any): void {
+  state.shoppingCar = list;
 };
 
 export const clearShoppingCar = function (state: any): void {
@@ -40,7 +43,6 @@ export const setUserInfo = function (state: any, info: any): void {
   state.userInfo = info;
 };
 
-
 export const setMarketInfo = function (state: any, info: any): void {
   state.marketInfo = info;
-}
+};

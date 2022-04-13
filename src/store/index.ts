@@ -25,6 +25,7 @@ import {
   setMarketInfo,
   setShoppingCar,
   setUserInfo,
+  updateShoppingCar,
 } from "./mutations";
 import {
   GET_GOODS_CLASSIFICATION_LIST,
@@ -42,6 +43,7 @@ import {
   SET_MARKET_INFO,
   SET_SHOPPING_CAR,
   SET_USER_INFO,
+  UPDATE_SHOPPONG_CAR,
 } from "./type/mutation-type";
 
 Vue.use(Vuex);
@@ -68,6 +70,7 @@ export default new Vuex.Store({
     [SET_GOODS_CLASSIFICATION_TREE]: setGoodsClassificationTree,
     [SET_GOODS_LIST]: setGoodsList,
     [SET_SHOPPING_CAR]: setShoppingCar,
+    [UPDATE_SHOPPONG_CAR]: updateShoppingCar,
     [SET_USER_INFO]: setUserInfo,
     [CLEAR_SHOPPING_CAR]: clearShoppingCar,
     [SET_MARKET_INFO]: setMarketInfo,

@@ -7,6 +7,8 @@ export const SET_GOODS_LIST = "setGoodsList";
 
 export const SET_SHOPPING_CAR = "setShoppingCar";
 
+export const UPDATE_SHOPPONG_CAR = "updateShoppingCar";
+
 export const SET_USER_INFO = "setUserInfo";
 
 export const CLEAR_SHOPPING_CAR = "clearShoppingCar";
