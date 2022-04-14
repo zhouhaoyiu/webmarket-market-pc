@@ -52,50 +52,89 @@
     </div>
     <div class="shopping-car-bottom-btns">
       <div class="shopping-car-bottom-btns-left">
-        <div><el-checkbox v-model="selectAll">全选</el-checkbox></div>
-        <div>
-          <button @click="clearShoppingCar" class="">清空购物车</button>
+        <div class="check-all">
+          <el-checkbox v-model="selectAll">全选</el-checkbox>
+        </div>
+        <div class="clear-car">
+          <el-button type="text" @click="clearShoppingCar" class=""
+            >清空购物车</el-button
+          >
         </div>
       </div>
       <div class="shopping-car-bottom-btns-right">
-        <div>已选商品 {{ selectGoodsNumber }} 件</div>
-        <div>合计（不含运费）：{{ selectGoodsPrice }}</div>
         <div>
-          <button class="shopping-car-bottom-btns-right-submit">结算</button>
+          <span class="good-select"
+            >已选商品 <span class="strong">{{ selectGoodsNumber }}</span> 件
+          </span>
+          <span class="sum-cost">
+            合计（不含运费 :
+            <span class="strong">{{ selectGoodsPrice }}</span></span
+          >
+        </div>
+        <div>
+          <button
+            @click="submitOrder"
+            class="shopping-car-bottom-btns-right-submit"
+          >
+            结算
+          </button>
         </div>
       </div>
     </div>
+    <el-dialog
+      title="支付"
+      center
+      :visible.sync="payDialogVisible"
+      width="30%"
+      :before-close="() => (payDialogVisible = false)"
+    >
+      <div style="display: flex; justify-content: center">
+        <el-button>取消</el-button>
+        <el-button type="primary" @click="pay">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
+import dayjs from "dayjs";
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
 
+type shoppingCarArr = Array<{
+  goodId: number;
+  goodName: string;
+  goodPrice: number;
+  goodNumber: number;
+  checked: boolean;
+}>;
 @Component({
   components: {},
 })
 export default class ShoppingCar extends Vue {
-  currentShoppingCar = [];
-  get selectAll() {
-    console.log(this.currentShoppingCar);
+  currentShoppingCar: shoppingCarArr = [];
+  payDialogVisible: boolean = false;
+
+  get selectAll(): boolean {
     return (
       this.currentShoppingCar.filter(
         (good: { checked: boolean }) => good.checked
       ).length === this.currentShoppingCar.length
     );
   }
+
   set selectAll(value: boolean) {
     this.currentShoppingCar.forEach(
       (good: { checked: boolean }) => (good.checked = value)
     );
   }
 
-  public clearShoppingCar() {
+  public clearShoppingCar(): void {
     this.currentShoppingCar = [];
   }
-  public setGoodNumber(currentGood: any, method: string) {
+
+  public setGoodNumber(currentGood: any, method: string): void {
     const number = method === "plus" ? 1 : -1;
     this.currentShoppingCar.forEach(
       (good: { goodNumber: number; goodId: number }) =>
@@ -105,22 +144,36 @@ export default class ShoppingCar extends Vue {
     );
   }
 
-  public deleteGood(currentGood: any) {
+  public deleteGood(currentGood: any): void {
     this.currentShoppingCar = this.currentShoppingCar.filter(
       (good: { goodId: number }) => good.goodId !== currentGood.goodId
     );
   }
 
-  public created() {
+  public created(): void {
     this.currentShoppingCar = window._.cloneDeep(this.$store.state.shoppingCar);
   }
 
   @Watch("currentShoppingCar", { deep: true })
-  public currentShoppingCarChange(val: any) {
+  public currentShoppingCarChange(val: any): void {
     this.$store.commit("updateShoppingCar", val);
   }
 
-  get selectGoodsNumber() {
+  public submitOrder(): void {
+    this.payDialogVisible = true;
+  }
+
+  public async pay(): Promise<void> {
+    const res = await this.axios.post("/order/createOrder", {
+      goods: JSON.stringify(this.currentShoppingCar),
+      orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      orderStatus: 0,
+      useruuid: this.$store.state.userInfo.useruuid,
+      username: this.$store.state.userInfo.username,
+    });
+  }
+
+  get selectGoodsNumber(): number {
     let sum = 0;
     this.currentShoppingCar.forEach(
       (good: { checked: boolean; goodNumber: number }) => {
@@ -131,7 +184,8 @@ export default class ShoppingCar extends Vue {
     );
     return sum;
   }
-  get selectGoodsPrice() {
+
+  get selectGoodsPrice(): number {
     let sum = 0;
     this.currentShoppingCar.forEach(
       (good: { checked: boolean; goodNumber: number; goodPrice: number }) => {
@@ -147,8 +201,11 @@ export default class ShoppingCar extends Vue {
 
 <style lang="scss" scoped>
 .shopping-car-content {
-  width: 100%;
+  width: 1440px;
+  max-width: 1440px;
+  margin: 0 auto;
   height: 100%;
+  background: #f7f7f7;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -258,17 +315,45 @@ export default class ShoppingCar extends Vue {
     max-width: 1440px;
     height: 72px;
     display: flex;
+    background: #fff;
+    border-top: 1px solid #e6e6e6;
     justify-content: space-between;
     position: fixed;
     top: calc(100% - 72px);
     z-index: 20;
-    background: #d8d8d8;
+
     .shopping-car-bottom-btns-left {
+      width: 20%;
       display: flex;
+      // justify-content: sb;
+      align-items: center;
+      .clear-car {
+        margin-left: 20px;
+        line-height: 72px;
+      }
     }
     .shopping-car-bottom-btns-right {
+      width: 30%;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 72px;
+      .good-select,
+      .sum-cost {
+        font-size: 14px;
+      }
+      .sum-cost {
+        margin-left: 20px;
+      }
+      .strong {
+        margin: 0 5px;
+        line-height: 72px;
+        font-weight: bold;
+        font-size: 20px;
+        color: #ff6700;
+      }
       .shopping-car-bottom-btns-right-submit {
+        margin-right: 20px;
         width: 74px;
         height: 42px;
         line-height: 42px;

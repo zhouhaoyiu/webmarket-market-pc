@@ -208,6 +208,15 @@ export default class TopBar extends Vue {
     margin-right: 0px;
     display: flex;
     flex-direction: row;
+
+    .user-order {
+      height: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-right: 20px;
+      color: #000;
+      cursor: pointer;
+    }
     .userName-text {
       margin-left: 10px;
       font-size: 14px;
