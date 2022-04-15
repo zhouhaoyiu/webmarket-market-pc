@@ -101,12 +101,12 @@ export default class GoodsClassificationDeatil extends Vue {
   }
 
   get GoodsList() {
-    console.log(
-      this.goods.filter(
-        (item: { goodClassification: any }) =>
-          item.goodClassification === this.hoverDetailsId
-      )
-    );
+    // console.log(
+    //   this.goods.filter(
+    //     (item: { goodClassification: any }) =>
+    //       item.goodClassification === this.hoverDetailsId
+    //   )
+    // );
     return this.goods.filter(
       (item: { goodClassification: any }) =>
         item.goodClassification === this.hoverDetailsId

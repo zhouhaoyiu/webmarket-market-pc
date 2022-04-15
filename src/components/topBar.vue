@@ -12,7 +12,9 @@
     </div>
     <div v-if="!userName" class="login" @click="login()">登录/注册</div>
     <div v-else class="userInfo">
-      <div class="user-order">我的订单</div>
+      <div class="user-order" @click="() => $router.push('/home/Order')">
+        我的订单
+      </div>
       <div class="userName-text" @click="openInfoDialog()">
         欢迎您 {{ userName }}
       </div>
@@ -32,14 +34,6 @@
       class="userInfo-dialog"
     >
       <div>
-        <!-- <div
-          v-for="[key, value] of Object.entries($store.state.userInfo)"
-          :key="key"
-          style="display: flex"
-        >
-          <div style="font-size: 20px">{{ key }}</div>
-          <div>{{ value }}</div>
-        </div> -->
         <div class="userInfo-dialog-line">
           <div class="userInfo-dialog-line-left">用户名</div>
           <div class="userInfo-dialog-line-right">{{ userInfo.username }}</div>
@@ -132,15 +126,15 @@ export default class TopBar extends Vue {
     await this.getMarketInfo();
     this.setUserInfoData.phonenumber = this.userInfo.phonenumber;
     this.setUserInfoData.address = this.userInfo.address;
-    console.log(this.$store.state.userInfo);
+    // console.log(this.$store.state.userInfo);
   }
 
-  goShoppingCar(): void {
+  public goShoppingCar(): void {
     this.$router.push({
       path: "/home/shoppingCar",
     });
   }
-  openInfoDialog() {
+  public openInfoDialog() {
     this.userInfoDialogVisible = true;
   }
 

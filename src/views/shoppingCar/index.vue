@@ -11,7 +11,9 @@
         <div class="shopping-car-title-goodcalprice">当前总价</div>
         <div class="shopping-car-title-good-btns">操作</div>
       </div>
+      <div class="shopping-car-null" v-if="currentShoppingCar.length === 0">您的购物车为空</div>
       <div
+        v-else
         class="shopping-car-box"
         :style="{
           borderColor: good.checked ? '#f00' : '#ccc',
@@ -36,7 +38,7 @@
             icon="el-icon-minus"
             @click="setGoodNumber(good, 'minus')"
           ></el-button>
-          <el-button
+          <el-button  
             type="text"
             icon="el-icon-plus"
             @click="setGoodNumber(good, 'plus')"
@@ -89,7 +91,7 @@
       :before-close="() => (payDialogVisible = false)"
     >
       <div style="display: flex; justify-content: center">
-        <el-button>取消</el-button>
+        <el-button @click="() => (payDialogVisible = false)">取消</el-button>
         <el-button type="primary" @click="pay">确定</el-button>
       </div>
     </el-dialog>
@@ -170,7 +172,15 @@ export default class ShoppingCar extends Vue {
       orderStatus: 0,
       useruuid: this.$store.state.userInfo.useruuid,
       username: this.$store.state.userInfo.username,
+      orderaddress: this.$store.state.userInfo.address,
     });
+    if (res.data.code === 1) {
+      this.$message.success("支付成功");
+      this.payDialogVisible = false;
+      this.clearShoppingCar();
+    } else if (res.data.code === 0) {
+      this.$message.error("支付失败");
+    }
   }
 
   get selectGoodsNumber(): number {
@@ -222,6 +232,8 @@ export default class ShoppingCar extends Vue {
       margin: auto;
       // background: violet;
       display: flex;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
       justify-content: space-between;
       text-align: center;
       div {
@@ -255,11 +267,21 @@ export default class ShoppingCar extends Vue {
         height: 100%;
       }
     }
+
+    .shopping-car-null{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      color: #999;
+    }
     .shopping-car-box {
       width: 90%;
       padding: 0 5%;
       height: 100px;
-      margin: 10px auto 40px auto;
+      margin: 20px auto 40px auto;
       text-align: center;
       display: flex;
       justify-content: space-between;

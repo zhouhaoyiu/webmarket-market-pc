@@ -89,7 +89,7 @@ export default class List extends Vue {
   }
 
   async mounted() {
-    console.log(this.$route);
+    // console.log(this.$route);
     const logDate = dayjs().format("YYYY-MM-DD");
   }
 }

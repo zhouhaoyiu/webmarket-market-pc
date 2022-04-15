@@ -64,15 +64,28 @@
           <div class="address">{{ $store.state.userInfo.address }}</div>
         </div>
         <div class="product-info-buy">
-          <button class="product-info-buy-btn" style="background: #2189ff90;" @click="addCart">
+          <button
+            class="product-info-buy-btn"
+            style="background: #2189ff90"
+            @click="addCart"
+          >
             加入购物车
           </button>
-          <button class="product-info-buy-btn" style="background: #2189ff" @click="buy()">立即购买</button>
+          <button
+            class="product-info-buy-btn"
+            style="background: #2189ff"
+            @click="() => (payDialogVisible = true)"
+          >
+            立即购买
+          </button>
         </div>
       </div>
     </div>
     <div class="product-bottom">
-      <div class="product-bottom-pic-desc" v-if="goodInfo.goodDescribeImages.length">
+      <div
+        class="product-bottom-pic-desc"
+        v-if="goodInfo.goodDescribeImages.length"
+      >
         <div
           v-for="(imageDesc, index) in goodInfo.goodDescribeImages.split(',')"
           :key="index"
@@ -84,6 +97,21 @@
         <span>暂无图片</span>
       </div>
     </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="payDialogVisible"
+      width="30%"
+      :before-close="
+        () => {
+          payDialogVisible = false;
+        }
+      "
+    >
+      <div style="display: flex; justify-content: center">
+        <el-button>取消</el-button>
+        <el-button type="primary" @click="pay">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -107,10 +135,11 @@ type GoodInfo = {
 export default class Product extends Vue {
   public gid = -1;
   public goodInfo: GoodInfo = {};
+  public payDialogVisible = false;
 
   public orderNumber = 1;
 
-  created() {
+  public created() {
     if (!localStorage.getItem("useruuid")) {
       this.$router.push("/login");
     }
@@ -118,31 +147,45 @@ export default class Product extends Vue {
     this.goodInfo = this.$store.getters.getGoodsList.find((item: any) => {
       return item.goodId === this.gid;
     });
-    console.log(this.goodInfo);
   }
 
-  addCart() {
+  public addCart() {
     this.$store.commit("setShoppingCar", {
       goodId: this.gid,
       goodName: this.goodInfo.goodName,
       goodPrice: this.goodInfo.goodPrice,
       goodNumber: this.orderNumber,
     });
+    this.$message.success("已经加入购物车");
   }
 
-  async buy(): Promise<void> {
-    const res = await this.axios.post("/order/buy", {
-      goodId: this.gid,
-      goodName: this.goodInfo.goodName,
-      goodPrice: this.goodInfo.goodPrice,
-      goodNumber: this.orderNumber,
-      address: this.$store.state.userInfo.address,
-      userId: this.$store.state.userInfo.userId,
+  public async pay(): Promise<void> {
+    const res = await this.axios.post("/order/createOrder", {
+      goods: JSON.stringify([
+        {
+          goodId: this.gid,
+          goodName: this.goodInfo.goodName,
+          goodPrice: this.goodInfo.goodPrice,
+          goodNumber: 1,
+        },
+      ]),
+      orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      orderStatus: 0,
+      useruuid: this.$store.state.userInfo.useruuid,
+      username: this.$store.state.userInfo.username,
+      orderaddress: this.$store.state.userInfo.address,
     });
+
+    if (res.data.code === 1) {
+      this.$message.success("购买成功");
+    } else if (res.data.code === 0) {
+      this.$message.error("购买失败");
+    }
+    this.payDialogVisible = false;
   }
 
-  async mounted() {
-    const logDate = dayjs().format("YYYY-MM-DD");
+  public async mounted() {
+    const logDate = dayjs().format("YYYY-MM-DD HH:mm:ss");
     // const res = await this.axios.post("/log/add", {
     //   userId: this.$store.state.userInfo.userId,
     //   logDate,
@@ -286,9 +329,9 @@ export default class Product extends Vue {
           margin-right: 20px;
           width: 120px;
           height: 40px;
-          
+
           color: #fff;
-          border:none;
+          border: none;
           border-radius: 20px;
           font-size: 18px;
           cursor: pointer;
@@ -297,7 +340,7 @@ export default class Product extends Vue {
     }
   }
 
-  .product-bottom{
+  .product-bottom {
     width: 100%;
     height: auto;
     min-height: calc(100% - 630px);
@@ -306,10 +349,10 @@ export default class Product extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .product-bottom-pic-desc{
+    .product-bottom-pic-desc {
       font-size: 0;
     }
-    .product-bottom-pic-null{
+    .product-bottom-pic-null {
       font-size: 32px;
       color: #666;
     }
