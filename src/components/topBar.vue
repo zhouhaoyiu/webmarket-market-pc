@@ -121,11 +121,18 @@ export default class TopBar extends Vue {
     ) as MarketInfo;
     this.marketInfo &&
       localStorage.setItem("marketName", (this.marketInfo as any).marketName);
+    document.title = (this.marketInfo as any).marketName;
+    document.getElementsByTagName(
+      "head"
+    )[0].innerHTML += `<meta name="keywords" content="${
+      (this.marketInfo as any).marketMeta
+    }">`;
   }
   async mounted(): Promise<void> {
     await this.getMarketInfo();
     this.setUserInfoData.phonenumber = this.userInfo.phonenumber;
     this.setUserInfoData.address = this.userInfo.address;
+    console.log(this.$store.state.userInfo);
   }
 
   goShoppingCar(): void {
@@ -160,7 +167,9 @@ export default class TopBar extends Vue {
 
   logout(): void {
     localStorage.removeItem("username");
-    this.$store.dispatch("setShoppingCar", []);
+    localStorage.removeItem("useruuid");
+    this.$store.commit("setUserInfo", {});
+    this.$store.commit("clearShoppingCar");
     this.$router.go(0);
   }
 }
@@ -273,7 +282,7 @@ export default class TopBar extends Vue {
     }
     .userInfo-dialog-btns {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       .userInfo-dialog-btn {
         margin-left: auto;
         margin-right: 20px;
