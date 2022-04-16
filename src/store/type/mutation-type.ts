@@ -14,3 +14,5 @@ export const SET_USER_INFO = "setUserInfo";
 export const CLEAR_SHOPPING_CAR = "clearShoppingCar";
 
 export const SET_MARKET_INFO = "setMarketInfo";
+
+export const SET_USER_ORDER = "setUserOrder";

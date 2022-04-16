@@ -8,6 +8,7 @@ import {
   shoppingCar,
   marketInfo,
   userInfo,
+  userOrder,
 } from "./state";
 import {
   getGoodsClassificationList,
@@ -16,6 +17,7 @@ import {
   getMarketInfo,
   getShoppingCar,
   getUserInfo,
+  getUserOrder,
 } from "./getters";
 import {
   clearShoppingCar,
@@ -25,6 +27,7 @@ import {
   setMarketInfo,
   setShoppingCar,
   setUserInfo,
+  setUserOrder,
   updateShoppingCar,
 } from "./mutations";
 import {
@@ -34,6 +37,7 @@ import {
   GET_MARKET_INFO,
   GET_SHOPPING_CAR,
   GET_USER_INFO,
+  GET_USER_ORDER,
 } from "./type/getter-type";
 import {
   CLEAR_SHOPPING_CAR,
@@ -43,6 +47,7 @@ import {
   SET_MARKET_INFO,
   SET_SHOPPING_CAR,
   SET_USER_INFO,
+  SET_USER_ORDER,
   UPDATE_SHOPPONG_CAR,
 } from "./type/mutation-type";
 
@@ -56,6 +61,7 @@ export default new Vuex.Store({
     shoppingCar: shoppingCar,
     userInfo: userInfo,
     marketInfo: marketInfo,
+    userOrder: userOrder,
   },
   getters: {
     [GET_GOODS_CLASSIFICATION_LIST]: getGoodsClassificationList,
@@ -64,6 +70,7 @@ export default new Vuex.Store({
     [GET_SHOPPING_CAR]: getShoppingCar,
     [GET_USER_INFO]: getUserInfo,
     [GET_MARKET_INFO]: getMarketInfo,
+    [GET_USER_ORDER]: getUserOrder,
   },
   mutations: {
     [SET_GOODS_CLASSIFICATION_LIST]: setGoodsClassificationList,
@@ -74,6 +81,7 @@ export default new Vuex.Store({
     [SET_USER_INFO]: setUserInfo,
     [CLEAR_SHOPPING_CAR]: clearShoppingCar,
     [SET_MARKET_INFO]: setMarketInfo,
+    [SET_USER_ORDER]: setUserOrder,
   },
   actions: {},
   plugins: [createVuexAlong()],

@@ -1,5 +1,5 @@
-import { shoppingCar } from "./state";
-// import { adminInfoType } from "@/types/type";
+import { orderArr } from "type";
+
 
 export const setGoodsClassificationList = function (
   state: any,
@@ -19,6 +19,7 @@ export const setGoodsList = function (state: any, list: any): void {
   state.goodsList = list;
 };
 
+// 向购物车中添加商品，如果商品已经存在，则商品数量加1
 export const setShoppingCar = function (state: any, list: any): void {
   let flag = true;
   state.shoppingCar.forEach((item: any) => {
@@ -46,3 +47,7 @@ export const setUserInfo = function (state: any, info: any): void {
 export const setMarketInfo = function (state: any, info: any): void {
   state.marketInfo = info;
 };
+
+export const setUserOrder = function (state: any, order: orderArr): void {
+  state.userOrder = order;
+}
