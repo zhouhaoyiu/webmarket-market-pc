@@ -11,7 +11,9 @@
         <div class="shopping-car-title-goodcalprice">当前总价</div>
         <div class="shopping-car-title-good-btns">操作</div>
       </div>
-      <div class="shopping-car-null" v-if="currentShoppingCar.length === 0">您的购物车为空</div>
+      <div class="shopping-car-null" v-if="currentShoppingCar.length === 0">
+        您的购物车为空
+      </div>
       <div
         v-else
         class="shopping-car-box"
@@ -38,7 +40,7 @@
             icon="el-icon-minus"
             @click="setGoodNumber(good, 'minus')"
           ></el-button>
-          <el-button  
+          <el-button
             type="text"
             icon="el-icon-plus"
             @click="setGoodNumber(good, 'plus')"
@@ -69,7 +71,7 @@
             >已选商品 <span class="strong">{{ selectGoodsNumber }}</span> 件
           </span>
           <span class="sum-cost">
-            合计（不含运费 :
+            合计（不含运费) :
             <span class="strong">{{ selectGoodsPrice }}</span></span
           >
         </div>
@@ -90,8 +92,22 @@
       width="30%"
       :before-close="() => (payDialogVisible = false)"
     >
-      <div style="display: flex; justify-content: center">
-        <el-button @click="() => (payDialogVisible = false)">取消</el-button>
+      <div style="display: flex; justify-content: center; align-self: center">
+        <img
+          src="../../assets/pay.png"
+          alt=""
+          style="width: 200px; height: 200px"
+        />
+      </div>
+      <div style="display: flex; justify-content: flex-end">
+        <el-button
+          @click="
+            () => {
+              payDialogVisible = false;
+            }
+          "
+          >取消</el-button
+        >
         <el-button type="primary" @click="pay">确定</el-button>
       </div>
     </el-dialog>
@@ -268,7 +284,7 @@ export default class ShoppingCar extends Vue {
       }
     }
 
-    .shopping-car-null{
+    .shopping-car-null {
       width: 100%;
       height: 100%;
       display: flex;

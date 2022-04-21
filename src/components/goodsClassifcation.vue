@@ -35,6 +35,14 @@
             </div>
           </div>
         </div>
+        <div class="display-image">
+          <img v-if="!displayImgSrc" src="../assets/logo.png" alt="" />
+          <img
+            v-else
+            :src="`http://localhost:8090/images/${displayImgSrc}`"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +56,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 export default class GoodsClassificationDeatil extends Vue {
   public hoverIndex = 0; // 鼠标移入的索引
   public hoverDetailsId = this.GoodsClassificationTree[0].classificationId; // 鼠标移入的Id
+  public displayImgSrc = ""; // 展示图片的路径
 
   @Watch("SelectClassification.classificationId", {
     immediate: true,
@@ -57,6 +66,7 @@ export default class GoodsClassificationDeatil extends Vue {
     this.hoverIndex = -1;
     this.$nextTick(() => {
       this.hoverIndex = 0;
+      this.displayImgSrc = "";
       this.hoverDetailsId = this.GoodsClassificationTree[0].classificationId;
     });
   }
@@ -94,6 +104,12 @@ export default class GoodsClassificationDeatil extends Vue {
   public hoverDetails(index: number, classificationId: number): void {
     this.hoverIndex = index;
     this.hoverDetailsId = classificationId;
+    this.displayImgSrc = this.$store.state.goodsList
+      .filter(
+        (item: { goodClassification: number }) =>
+          item.goodClassification === classificationId
+      )[0]
+      ?.goodImages?.split(",")[0];
   }
 
   get GoodsClassificationTree() {
@@ -101,12 +117,6 @@ export default class GoodsClassificationDeatil extends Vue {
   }
 
   get GoodsList() {
-    // console.log(
-    //   this.goods.filter(
-    //     (item: { goodClassification: any }) =>
-    //       item.goodClassification === this.hoverDetailsId
-    //   )
-    // );
     return this.goods.filter(
       (item: { goodClassification: any }) =>
         item.goodClassification === this.hoverDetailsId
@@ -283,6 +293,22 @@ export default class GoodsClassificationDeatil extends Vue {
             width: 100%;
             left: 0;
           }
+        }
+      }
+
+      .display-image {
+        width: 40%;
+        height: 100%;
+        padding-top: 50px; // 图片距离顶部的距离
+        // background: red;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        img {
+          width: 300px;
+          height: 300px;
+          object-fit: cover;
         }
       }
     }

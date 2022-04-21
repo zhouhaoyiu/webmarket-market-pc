@@ -10,7 +10,10 @@
           class="selection"
           v-for="[k, v] of Object.entries(orderByObj)"
           :key="k"
-          :style="{ borderColor: orderBy === k ? '#459cff' : '', color: orderBy === k ? '#459cff' : '' }"
+          :style="{
+            borderColor: orderBy === k ? '#459cff' : '',
+            color: orderBy === k ? '#459cff' : '',
+          }"
           @click="setOrderBy(k)"
         >
           {{ v }}
@@ -22,6 +25,7 @@
         class="shopping-list-good"
         v-for="good in GoodsList"
         :key="good.goodId"
+        @click="goDetail(good)"
       >
         <div class="shopping-list-good-tags">
           <el-tag effect="dark">新品</el-tag>
@@ -39,7 +43,10 @@
             {{ good.goodName }}
           </div>
           <div class="good-price">￥ {{ good.goodPrice }}</div>
-          <div class="good-count">剩余 {{ good.goodCount }}</div>
+          <div class="good-count">
+            剩余 {{ good.goodCount }} 销量 {{ good.goodSellCount }} 访问量
+            {{ good.goodVisitCount }}
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +70,16 @@ export default class List extends Vue {
   };
   public orderBy = "default";
 
-  created() {
+  public goDetail(good: any): void {
+    this.$router.replace({
+      path: "/home/detail",
+      query: {
+        goodId: good.goodId,
+      },
+    });
+  }
+
+  public created() {
     if (!localStorage.getItem("useruuid")) {
       this.$router.push("/login");
     }
@@ -74,7 +90,17 @@ export default class List extends Vue {
     return this.$store.state.goodsList.filter(
       (good: { goodClassification: number }) =>
         good.goodClassification === this.gid
-    );
+    ).sort((a: any, b: any) => {
+      if (this.orderBy === "default") {
+        return a.goodId - b.goodId;
+      } else if (this.orderBy === "hot") {
+        return b.goodSellCount - a.goodSellCount;
+      } else if (this.orderBy === "priceHigh") {
+        return b.goodPrice - a.goodPrice;
+      } else if (this.orderBy === "priceLow") {
+        return a.goodPrice - b.goodPrice;
+      }
+    });
   }
 
   get goodClassificationName() {
@@ -89,8 +115,13 @@ export default class List extends Vue {
   }
 
   async mounted() {
-    // console.log(this.$route);
-    const logDate = dayjs().format("YYYY-MM-DD");
+    const logtime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    const res = await this.axios.post("/userLog/addUserLog", {
+      useruuid: this.$store.state.userInfo.useruuid,
+      logtime,
+      type: "查看分类",
+      gid: this.gid,
+    });
   }
 }
 </script>
@@ -103,6 +134,7 @@ export default class List extends Vue {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
   // justify-content: center;
   align-items: center;
   .shopping-list-title {
@@ -110,25 +142,26 @@ export default class List extends Vue {
     height: 80px;
     line-height: 80px;
     font-size: 30px;
+    font-weight: bold;
     text-align: left;
     color: #333;
   }
 
-  .shopping-list-orderby{
+  .shopping-list-orderby {
     margin-bottom: 20px;
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    .title{
+    .title {
       font-size: 16px;
       color: #333;
     }
-    .selections{
+    .selections {
       display: flex;
       margin-left: 20px;
-      .selection{
+      .selection {
         color: black;
         font-size: 14px;
         border: 1px solid #333;

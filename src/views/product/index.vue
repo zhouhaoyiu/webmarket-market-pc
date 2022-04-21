@@ -107,9 +107,27 @@
         }
       "
     >
-      <div style="display: flex; justify-content: center">
-        <el-button>取消</el-button>
-        <el-button type="primary" @click="pay">确定</el-button>
+      <div
+        style="display: flex; justify-content: center; flex-direction: column"
+      >
+        <div style="display: flex; justify-content: center; align-self: center">
+          <img
+            src="../../assets/pay.png"
+            alt=""
+            style="width: 200px; height: 200px"
+          />
+        </div>
+        <div style="display: flex; justify-content: flex-end">
+          <el-button
+            @click="
+              () => {
+                payDialogVisible = false;
+              }
+            "
+            >取消</el-button
+          >
+          <el-button type="primary" @click="pay">确定</el-button>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -166,7 +184,7 @@ export default class Product extends Vue {
           goodId: this.gid,
           goodName: this.goodInfo.goodName,
           goodPrice: this.goodInfo.goodPrice,
-          goodNumber: 1,
+          goodNumber: this.orderNumber,
         },
       ]),
       orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
@@ -185,13 +203,13 @@ export default class Product extends Vue {
   }
 
   public async mounted() {
-    const logDate = dayjs().format("YYYY-MM-DD HH:mm:ss");
-    // const res = await this.axios.post("/log/add", {
-    //   userId: this.$store.state.userInfo.userId,
-    //   logDate,
-    //   logType: "查看商品",
-    //   logContent: `查看商品${this.goodInfo.goodName}`,
-    // });
+    const logtime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    const res = await this.axios.post("/userLog/addUserLog", {
+      useruuid: this.$store.state.userInfo.useruuid,
+      logtime,
+      type: "查看商品",
+      gid: this.gid,
+    });
   }
 }
 </script>
