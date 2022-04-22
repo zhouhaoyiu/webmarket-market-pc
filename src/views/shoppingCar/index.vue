@@ -149,7 +149,9 @@ export default class ShoppingCar extends Vue {
   }
 
   public clearShoppingCar(): void {
-    this.currentShoppingCar = [];
+    this.currentShoppingCar = this.currentShoppingCar.filter(
+      (good: { checked: boolean }) => !good.checked
+    );
   }
 
   public setGoodNumber(currentGood: any, method: string): void {
@@ -183,7 +185,9 @@ export default class ShoppingCar extends Vue {
 
   public async pay(): Promise<void> {
     const res = await this.axios.post("/order/createOrder", {
-      goods: JSON.stringify(this.currentShoppingCar),
+      goods: JSON.stringify(this.currentShoppingCar.filter(
+        (good: { checked: boolean }) => good.checked
+      )),
       orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       orderStatus: 0,
       useruuid: this.$store.state.userInfo.useruuid,
