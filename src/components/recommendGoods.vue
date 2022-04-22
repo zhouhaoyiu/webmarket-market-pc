@@ -94,7 +94,10 @@ export default class RecommendGoods extends Vue {
   }
 
   public mounted() {
-    // console.log("RecommendGoods mounted");
+    console.log(
+      "%c welcome to market ",
+      "color:white;font-size:30px;background:linear-gradient(315deg, rgb(66, 211, 146) 25%, rgb(100, 126, 255))"
+    );
   }
 }
 </script>
