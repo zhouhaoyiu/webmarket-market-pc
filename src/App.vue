@@ -12,7 +12,7 @@ import getGoodsClassification from "./utils/getGoodsClassifacation";
   components: {},
 })
 export default class App extends Vue {
-  public mounted() {
+  public mounted(): void {
     getGoodsClassification();
     getGoods();
   }
