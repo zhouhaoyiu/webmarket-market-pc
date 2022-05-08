@@ -1,4 +1,5 @@
 #!/bin/bash
+## Todo: 添加log功能
 sign=true
 message="some changes"
 for i in $*
