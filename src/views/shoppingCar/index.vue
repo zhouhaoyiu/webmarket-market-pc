@@ -52,7 +52,6 @@
           ></el-button>
         </div>
       </div>
-      <!-- {{ shoppingCar }} -->
     </div>
     <div class="shopping-car-bottom-btns">
       <div class="shopping-car-bottom-btns-left">
@@ -67,13 +66,15 @@
       </div>
       <div class="shopping-car-bottom-btns-right">
         <div>
-          <span class="good-select"
-            >已选商品 <span class="strong">{{ selectGoodsNumber }}</span> 件
+          <span class="good-select">
+            <span>已选商品 </span>
+            <span class="strong">{{ selectGoodsNumber }}</span>
+            <span>件</span>
           </span>
           <span class="sum-cost">
-            合计（不含运费) :
-            <span class="strong">{{ selectGoodsPrice }}</span></span
-          >
+            <span>合计（不含运费) : </span>
+            <span class="strong">{{ selectGoodsPrice }}</span>
+          </span>
         </div>
         <div>
           <button
@@ -184,22 +185,29 @@ export default class ShoppingCar extends Vue {
   }
 
   public async pay(): Promise<void> {
-    const res = await this.axios.post("/order/createOrder", {
-      goods: JSON.stringify(this.currentShoppingCar.filter(
-        (good: { checked: boolean }) => good.checked
-      )),
-      orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-      orderStatus: 0,
-      useruuid: this.$store.state.userInfo.useruuid,
-      username: this.$store.state.userInfo.username,
-      orderaddress: this.$store.state.userInfo.address,
-    });
-    if (res.data.code === 1) {
-      this.$message.success("支付成功");
-      this.payDialogVisible = false;
-      this.clearShoppingCar();
-    } else if (res.data.code === 0) {
-      this.$message.error("支付失败");
+    try {
+      const res = await this.axios.post("/order/createOrder", {
+        goods: JSON.stringify(
+          this.currentShoppingCar.filter(
+            (good: { checked: boolean }) => good.checked
+          )
+        ),
+        orderdate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        orderStatus: 0,
+        useruuid: this.$store.state.userInfo.useruuid,
+        username: this.$store.state.userInfo.username,
+        orderaddress: this.$store.state.userInfo.address,
+      });
+      if (res.data.code === 1) {
+        this.$message.success("支付成功");
+        this.payDialogVisible = false;
+        this.clearShoppingCar();
+      } else if (res.data.code === 0) {
+        this.$message.error("支付失败");
+      }
+    } catch (e) {
+      console.log(e);
+      this.$message.error("网络错误");
     }
   }
 

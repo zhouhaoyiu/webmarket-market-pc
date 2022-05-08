@@ -178,7 +178,7 @@ export default class Login extends Vue {
     }
     const res: Result = await this.axios.post("/user/login", {
       username: this.userName, // 必填
-      password: this.passWord, // TODO: 加密
+      password: this.passWord,
     });
     if (res.data.code === 0) {
       localStorage.setItem("username", res.data.data[0].username);
@@ -208,7 +208,7 @@ export default class Login extends Vue {
     this.regisDialog = false;
   }
 
-  public async submitRegis() {
+  public async submitRegis(): Promise<void> {
     if (this.regisForm.username === "") {
       this.$message.error("用户名不能为空");
       return;

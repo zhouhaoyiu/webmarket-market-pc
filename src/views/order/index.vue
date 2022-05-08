@@ -87,7 +87,9 @@ export default class Order extends Vue {
 
 <style lang="scss" scoped>
 .myorder {
+
   width: 1440px;
+  height: 100%;
   max-width: 1440px;
   margin: 0 auto;
   overflow: auto;
@@ -100,7 +102,8 @@ export default class Order extends Vue {
     margin-top: 20px;
     padding: 0 50px;
     font-size: 22px;
-    color: rgb(153, 153, 153);
+    font-weight: bold;
+    color: rgb(122, 122, 122);
     background: #f5f5f5;
     user-select: none;
   }
@@ -171,9 +174,10 @@ export default class Order extends Vue {
     }
 
     &:hover {
-      border-color: #f00;
+      border: 1px solid #f00;
       box-shadow: 0 0 1px #f00;
       background: #fff9f6;
+      transform: scale(1.02);
     }
   }
 }

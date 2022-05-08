@@ -20,7 +20,7 @@
             :src="`http://localhost:8090/images/${
               good.goodImages.split(',')[0]
             }`"
-            alt=""
+            alt="goods image"
           />
         </el-tooltip>
       </div>
@@ -93,7 +93,7 @@ export default class RecommendGoods extends Vue {
     });
   }
 
-  public mounted() {
+  public mounted(): void {
     console.log(
       "%c welcome to market ",
       "color:white;font-size:30px;background:linear-gradient(315deg, rgb(66, 211, 146) 25%, rgb(100, 126, 255))"

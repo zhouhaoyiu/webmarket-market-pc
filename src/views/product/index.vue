@@ -167,7 +167,7 @@ export default class Product extends Vue {
     });
   }
 
-  public addCart() {
+  public addCart(): void {
     this.$store.commit("setShoppingCar", {
       goodId: this.gid,
       goodName: this.goodInfo.goodName,
