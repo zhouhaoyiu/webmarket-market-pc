@@ -4,7 +4,7 @@
       <div class="product-images">
         <el-carousel class="carousel" height="600px">
           <el-carousel-item
-            v-for="(item, index) in goodInfo.goodImages.split(',')"
+            v-for="(item, index) in (goodInfo.goodImages || '').split(',')"
             :key="index"
           >
             <img :src="`http://localhost:8090/images/${item}`" alt="" />
@@ -84,10 +84,10 @@
     <div class="product-bottom">
       <div
         class="product-bottom-pic-desc"
-        v-if="goodInfo.goodDescribeImages.length"
+        v-if="(goodInfo.goodDescribeImages || []).length"
       >
         <div
-          v-for="(imageDesc, index) in goodInfo.goodDescribeImages.split(',')"
+          v-for="(imageDesc, index) in (goodInfo.goodDescribeImages ||'').split(',')"
           :key="index"
         >
           <img :src="`http://localhost:8090/images/${imageDesc}`" alt="" />
