@@ -180,10 +180,12 @@ export default class ShoppingCar extends Vue {
     this.$store.commit("updateShoppingCar", val);
   }
 
+  // 提交订单
   public submitOrder(): void {
     this.payDialogVisible = true;
   }
 
+  // 支付
   public async pay(): Promise<void> {
     try {
       const res = await this.axios.post("/order/createOrder", {
