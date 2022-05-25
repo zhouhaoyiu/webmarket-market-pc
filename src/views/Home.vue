@@ -5,10 +5,7 @@
 
     <div v-if="$route.fullPath === '/home'" class="carousel">
       <el-carousel height="630px">
-        <el-carousel-item
-          v-for="(image, index) in marketInfo.marketImages.split(',')"
-          :key="index"
-        >
+        <el-carousel-item v-for="(image, index) in marketInfo.marketImages.split(',')" :key="index">
           <img :src="`http://localhost:8090/images/${image}`" alt="" />
         </el-carousel-item>
       </el-carousel>
@@ -19,13 +16,14 @@
 </template>
 
 <script lang="ts">
+import Footer from "@/components/footer.vue";
 import ListBar from "@/components/ListBar.vue";
 import RecommendGoods from "@/components/recommendGoods.vue";
 import TopBar from "@/components/topBar.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: { TopBar, ListBar, RecommendGoods },
+  components: { TopBar, ListBar, RecommendGoods, Footer },
 })
 export default class Home extends Vue {
   async getCarousel(): Promise<void> {
@@ -54,6 +52,7 @@ export default class Home extends Vue {
     justify-content: center;
     align-items: center;
     width: 100%;
+
     .el-carousel {
       width: 1440px;
     }
@@ -66,6 +65,5 @@ export default class Home extends Vue {
       margin: 0;
     }
   }
-  // flex-wrap: wrap;
 }
 </style>

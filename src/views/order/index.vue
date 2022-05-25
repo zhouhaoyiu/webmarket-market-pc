@@ -2,22 +2,12 @@
   <div class="myorder">
     <div class="myorder-title">我的订单</div>
     <div v-if="userOrder.length === 0">您目前暂无订单</div>
-    <div
-      v-else
-      v-for="order in userOrder"
-      :key="order.orderid"
-      class="myorder-order"
-      :style="{
-        backgroundColor: orderStatusColor[order.orderStatus],
-      }"
-    >
+    <div v-else v-for="order in userOrder" :key="order.orderid" class="myorder-order" :style="{
+      backgroundColor: orderStatusColor[order.orderStatus],
+    }">
       <!-- {{ JSON.parse(order.goods) }} -->
       <div class="goods">
-        <div
-          class="good"
-          v-for="(good, index) in JSON.parse(order.goods)"
-          :key="index"
-        >
+        <div class="good" v-for="(good, index) in JSON.parse(order.goods)" :key="index">
           {{ good.goodName }} * {{ good.goodNumber }}
         </div>
       </div>
@@ -25,11 +15,11 @@
       <div class="orderdate">{{ order.orderdate }}</div>
       <div class="orderstatus">
         {{
-          order.orderStatus === 0
-            ? "待处理"
-            : order.orderStatus === 1
-            ? "已被拒绝"
-            : "已发货"
+            order.orderStatus === 0
+              ? "待处理"
+              : order.orderStatus === 1
+                ? "已被拒绝"
+                : "已发货"
         }}
       </div>
       <div class="orderstatus">
@@ -93,6 +83,7 @@ export default class Order extends Vue {
   max-width: 1440px;
   margin: 0 auto;
   overflow: auto;
+
   .myorder-title {
     width: 95%;
     height: 65px;
@@ -132,6 +123,7 @@ export default class Order extends Vue {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       .good {
         width: 100%;
         font-size: 16px;

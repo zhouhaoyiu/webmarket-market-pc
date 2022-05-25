@@ -8,15 +8,10 @@
       </div>
       <div class="details-all">
         <div class="details-content">
-          <div
-            class="details-content-item"
-            v-for="(i, index) in SelectClassification.children"
-            :key="i.id"
-          >
+          <div class="details-content-item" v-for="(i, index) in SelectClassification.children" :key="i.id">
             <div class="details-content-item-link" @click="goPage(i)">
               <span @mouseover="hoverDetails(index, i.classificationId)">
-                {{ i.classificationName }}</span
-              >
+                {{ i.classificationName }}</span>
 
               <i v-if="hoverIndex === index" class="fas fa-angle-right"></i>
             </div>
@@ -25,23 +20,14 @@
         <div class="goods-list-content">
           <div class="goods-list-box" v-if="GoodsList.length > 0">
             <div class="goods-list-all">全部系列产品</div>
-            <div
-              class="goods-list-item"
-              v-for="good in GoodsList"
-              :key="good.goodId"
-              @click="goDetail(good)"
-            >
+            <div class="goods-list-item" v-for="good in GoodsList" :key="good.goodId" @click="goDetail(good)">
               {{ good.goodName }}
             </div>
           </div>
         </div>
         <div class="display-image">
           <img v-if="!displayImgSrc" src="../assets/logo.png" alt="" />
-          <img
-            v-else
-            :src="`http://localhost:8090/images/${displayImgSrc}`"
-            alt=""
-          />
+          <img v-else :src="`http://localhost:8090/images/${displayImgSrc}`" alt="" />
         </div>
       </div>
     </div>
@@ -136,11 +122,13 @@ export default class GoodsClassificationDeatil extends Vue {
     opacity: 0;
     transform: translateX(-100%);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
+
 .classification-details-content {
   position: fixed;
   top: 130px;
@@ -153,11 +141,13 @@ export default class GoodsClassificationDeatil extends Vue {
   align-items: center;
   z-index: 100;
   background: #fff;
+
   .details {
     width: 1440px;
     height: 100%;
     position: relative;
     padding: 24px;
+
     .details-title {
       width: 100%;
       height: 60px;
@@ -177,6 +167,7 @@ export default class GoodsClassificationDeatil extends Vue {
         color: #333;
         cursor: pointer;
       }
+
       .details-title-link:after {
         content: "";
         display: block;
@@ -195,16 +186,19 @@ export default class GoodsClassificationDeatil extends Vue {
       .details-title-link:hover {
         color: #000;
       }
+
       .details-title-link:hover.details-title-link:after {
         width: 100%;
         left: 0;
       }
     }
+
     .details-all {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: row;
+
       .details-content {
         width: 20%;
         height: calc(100% - 60px);
@@ -214,6 +208,7 @@ export default class GoodsClassificationDeatil extends Vue {
         align-items: flex-start;
         padding-top: 24px;
         padding-right: 24px;
+
         .details-content-item {
           width: 100%;
           height: 60px;
@@ -224,9 +219,11 @@ export default class GoodsClassificationDeatil extends Vue {
           font-weight: 700;
           color: #333;
           cursor: pointer;
+
           &:hover {
             color: #000;
           }
+
           .details-content-item-link {
             width: 100%;
             height: 100%;
@@ -235,6 +232,7 @@ export default class GoodsClassificationDeatil extends Vue {
             align-items: center;
             color: #333;
             cursor: pointer;
+
             .fas {
               animation: leftToRightFadeIn 0.5s ease-in-out;
               animation-fill-mode: forwards;
@@ -242,6 +240,7 @@ export default class GoodsClassificationDeatil extends Vue {
           }
         }
       }
+
       .goods-list-content {
         width: 40%;
         height: calc(100% - 200px);
@@ -253,7 +252,9 @@ export default class GoodsClassificationDeatil extends Vue {
         justify-content: flex-start;
         align-items: flex-start;
         border-right: 1px solid #999;
+
         .goods-list-box {
+
           .goods-list-all,
           .goods-list-item {
             width: 100%;
@@ -266,11 +267,13 @@ export default class GoodsClassificationDeatil extends Vue {
             // font-weight: 300;
 
             cursor: pointer;
+
             &:hover {
               color: #000;
               font-weight: 700;
             }
           }
+
           .goods-list-all,
           .goods-list-item {
             &:after {
@@ -288,6 +291,7 @@ export default class GoodsClassificationDeatil extends Vue {
                 width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             }
           }
+
           .goods-list-all:hover.goods-list-all:after,
           .goods-list-item:hover.goods-list-item:after {
             width: 100%;

@@ -3,11 +3,7 @@
     <div class="marketName" v-if="marketInfo" @click="$router.push('/home')">
       欢迎来到{{ marketInfo.marketName || "网上商城" }}
     </div>
-    <div
-      v-if="$route.fullPath !== '/home'"
-      @click="$router.push('/home')"
-      class="gohome"
-    >
+    <div v-if="$route.fullPath !== '/home'" @click="$router.push('/home')" class="gohome">
       回到首页
     </div>
     <div v-if="!userName" class="login" @click="login()">登录/注册</div>
@@ -26,13 +22,7 @@
         <el-button type="text" @click="logout()">登出</el-button>
       </div>
     </div>
-    <el-dialog
-      title="个人信息"
-      :visible.sync="userInfoDialogVisible"
-      width="30%"
-      center
-      class="userInfo-dialog"
-    >
+    <el-dialog title="个人信息" :visible.sync="userInfoDialogVisible" width="30%" center class="userInfo-dialog">
       <div>
         <div class="userInfo-dialog-line">
           <div class="userInfo-dialog-line-left">用户名</div>
@@ -62,12 +52,8 @@
         </div>
       </div>
       <div class="userInfo-dialog-btns">
-        <el-button
-          class="userInfo-dialog-btn"
-          type="primary"
-          @click="userInfoEditStatus = true"
-          v-if="!userInfoEditStatus"
-        >
+        <el-button class="userInfo-dialog-btn" type="primary" @click="userInfoEditStatus = true"
+          v-if="!userInfoEditStatus">
           编辑信息
         </el-button>
         <div class="userInfo-dialog-btn" v-else>
@@ -118,9 +104,8 @@ export default class TopBar extends Vue {
     document.title = (this.marketInfo as any).marketName;
     document.getElementsByTagName(
       "head"
-    )[0].innerHTML += `<meta name="keywords" content="${
-      (this.marketInfo as any).marketMeta
-    }">`;
+    )[0].innerHTML += `<meta name="keywords" content="${(this.marketInfo as any).marketMeta
+      }">`;
   }
   async mounted(): Promise<void> {
     await this.getMarketInfo();
@@ -179,6 +164,7 @@ export default class TopBar extends Vue {
   background: #f7f7f7;
   display: flex;
   margin: 0 auto;
+
   // box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.2);
   .marketName {
     // color: white;
@@ -186,11 +172,13 @@ export default class TopBar extends Vue {
     font-size: 20px;
     cursor: pointer;
   }
+
   .gohome {
     margin-left: 20px;
     font-size: 12px;
     cursor: pointer;
   }
+
   .login {
     width: 59px;
     height: 50px;
@@ -201,6 +189,7 @@ export default class TopBar extends Vue {
     margin-right: 200px;
     cursor: pointer;
   }
+
   .userInfo {
     width: 400px;
     height: 50px;
@@ -220,15 +209,18 @@ export default class TopBar extends Vue {
       color: #000;
       cursor: pointer;
     }
+
     .userName-text {
       margin-left: 10px;
       font-size: 14px;
       color: #999;
       cursor: pointer;
     }
+
     .userName-text:hover {
       color: #333;
     }
+
     .user-shoppingCar {
       display: flex;
       align-items: center;
@@ -242,31 +234,37 @@ export default class TopBar extends Vue {
       margin-bottom: auto;
       padding: 15px 10px;
       cursor: pointer;
+
       .fas {
         margin-right: 10px;
       }
     }
+
     .user-shoppingCar:hover {
       background-color: #000;
       color: #fff;
       border: 1px solid #f7f7f7;
     }
+
     .userName-logout {
       margin-left: 30px;
       font-size: 14px;
       color: #000;
     }
   }
+
   .userInfo-dialog {
     .userInfo-dialog-line {
       display: flex;
       // justify-content: space-between;
       margin-bottom: 10px;
+
       .userInfo-dialog-line-left {
         font-size: 18px;
         color: #999;
         line-height: 30px;
       }
+
       .userInfo-dialog-line-right {
         margin-left: 20px;
         font-size: 22px;
@@ -274,9 +272,11 @@ export default class TopBar extends Vue {
         line-height: 30px;
       }
     }
+
     .userInfo-dialog-btns {
       display: flex;
       justify-content: flex-end;
+
       .userInfo-dialog-btn {
         margin-left: auto;
         margin-right: 20px;

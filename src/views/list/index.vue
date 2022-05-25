@@ -6,38 +6,24 @@
     <div class="shopping-list-orderby">
       <span class="title">排序</span>
       <div class="selections">
-        <div
-          class="selection"
-          v-for="[k, v] of Object.entries(orderByObj)"
-          :key="k"
-          :style="{
-            borderColor: orderBy === k ? '#459cff' : '',
-            color: orderBy === k ? '#459cff' : '',
-          }"
-          @click="setOrderBy(k)"
-        >
+        <div class="selection" v-for="[k, v] of Object.entries(orderByObj)" :key="k" :style="{
+          borderColor: orderBy === k ? '#459cff' : '',
+          color: orderBy === k ? '#459cff' : '',
+        }" @click="setOrderBy(k)">
           {{ v }}
         </div>
       </div>
     </div>
     <div class="shopping-list-goods-list">
-      <div
-        class="shopping-list-good"
-        v-for="good in GoodsList"
-        :key="good.goodId"
-        @click="goDetail(good)"
-      >
+      <div class="shopping-list-good" v-for="good in GoodsList" :key="good.goodId" @click="goDetail(good)">
         <div class="shopping-list-good-tags">
           <el-tag effect="dark">新品</el-tag>
           <el-tag effect="dark">免息</el-tag>
           <el-tag effect="dark">买赠</el-tag>
           <el-tag effect="dark">以旧换新</el-tag>
         </div>
-        <img
-          :src="`http://localhost:8090/images/${good.goodImages.split(',')[0]}`"
-          class="shopping-list-good-img"
-          alt=""
-        />
+        <img :src="`http://localhost:8090/images/${good.goodImages.split(',')[0]}`" class="shopping-list-good-img"
+          alt="" />
         <div class="shopping-list-good-info">
           <div class="good-name">
             {{ good.goodName }}
@@ -137,6 +123,7 @@ export default class List extends Vue {
   overflow: auto;
   // justify-content: center;
   align-items: center;
+
   .shopping-list-title {
     width: 100%;
     height: 80px;
@@ -154,13 +141,16 @@ export default class List extends Vue {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
     .title {
       font-size: 16px;
       color: #333;
     }
+
     .selections {
       display: flex;
       margin-left: 20px;
+
       .selection {
         color: black;
         font-size: 14px;
@@ -185,6 +175,7 @@ export default class List extends Vue {
     justify-content: flex-start;
     align-items: flex-start;
     padding: 40px 100px;
+
     .shopping-list-good {
       width: 310px;
       height: 427px;
@@ -197,16 +188,19 @@ export default class List extends Vue {
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+
       .shopping-list-good-tags {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         margin-bottom: 10px;
+
         .el-tag {
           margin-right: 10px;
         }
       }
+
       .shopping-list-good-info {
         width: 100%;
         height: 40%;
@@ -218,11 +212,13 @@ export default class List extends Vue {
         font-weight: bold;
         text-align: center;
         color: #333;
+
         .good-name {
           width: 100%;
           height: 40px;
           line-height: 40px;
         }
+
         .good-price {
           width: 100%;
           margin-top: 10%;
@@ -231,6 +227,7 @@ export default class List extends Vue {
           color: #2189ff;
           line-height: 20px;
         }
+
         .good-count {
           width: 100%;
           margin-top: 5%;
@@ -239,6 +236,7 @@ export default class List extends Vue {
           font-size: 14px;
         }
       }
+
       .shopping-list-good-img {
         margin-top: 10%;
         width: 200px;
@@ -249,6 +247,7 @@ export default class List extends Vue {
         align-items: center;
         object-fit: contain;
       }
+
       &:hover {
         transform: scale(1.05);
         box-shadow: 0 0 10px #459cff;

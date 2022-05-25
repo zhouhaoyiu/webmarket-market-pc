@@ -2,26 +2,11 @@
   <div class="recommend">
     <div class="recommend-title">推荐商品 {{ recommendName }}</div>
     <div style="display: flex; justify-content: space-between">
-      <div
-        @mousedown="preventDefault()"
-        @click="goGoodDetail(good.goodId)"
-        style="cursor: pointer; user-select: none"
-        v-for="good in recommendGoods.slice(0, 8)"
-        :key="good.goodId"
-      >
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content="good.goodName"
-          placement="top"
-        >
-          <img
-            style="width: 100px; height: 100px"
-            :src="`http://localhost:8090/images/${
-              good.goodImages.split(',')[0]
-            }`"
-            alt="goods image"
-          />
+      <div @mousedown="preventDefault()" @click="goGoodDetail(good.goodId)" style="cursor: pointer; user-select: none"
+        v-for="good in recommendGoods.slice(0, 8)" :key="good.goodId">
+        <el-tooltip class="item" effect="dark" :content="good.goodName" placement="top">
+          <img style="width: 100px; height: 100px" :src="`http://localhost:8090/images/${good.goodImages.split(',')[0]
+          }`" alt="goods image" />
         </el-tooltip>
       </div>
     </div>
@@ -110,6 +95,7 @@ export default class RecommendGoods extends Vue {
   margin: auto;
   display: flex;
   flex-direction: column;
+
   .recommend-title {
     margin-top: 12px;
     font-size: 24px;

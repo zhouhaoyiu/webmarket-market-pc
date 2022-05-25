@@ -14,17 +14,11 @@
       <div class="shopping-car-null" v-if="currentShoppingCar.length === 0">
         您的购物车为空
       </div>
-      <div
-        v-else
-        class="shopping-car-box"
-        :style="{
-          borderColor: good.checked ? '#f00' : '#ccc',
-          boxShadow: good.checked ? '0 0 1px #f00' : 'none',
-          background: good.checked ? '#fff9f6' : '',
-        }"
-        v-for="good in currentShoppingCar"
-        :key="good.goodId"
-      >
+      <div v-else class="shopping-car-box" :style="{
+        borderColor: good.checked ? '#f00' : '#ccc',
+        boxShadow: good.checked ? '0 0 1px #f00' : 'none',
+        background: good.checked ? '#fff9f6' : '',
+      }" v-for="good in currentShoppingCar" :key="good.goodId">
         <div class="shopping-car-good-checkbox">
           <el-checkbox v-model="good.checked"></el-checkbox>
         </div>
@@ -35,21 +29,9 @@
           {{ good.goodPrice * good.goodNumber }}
         </div>
         <div class="shopping-car-good-btns">
-          <el-button
-            type="text"
-            icon="el-icon-minus"
-            @click="setGoodNumber(good, 'minus')"
-          ></el-button>
-          <el-button
-            type="text"
-            icon="el-icon-plus"
-            @click="setGoodNumber(good, 'plus')"
-          ></el-button>
-          <el-button
-            type="text"
-            icon="el-icon-delete"
-            @click="deleteGood(good)"
-          ></el-button>
+          <el-button type="text" icon="el-icon-minus" @click="setGoodNumber(good, 'minus')"></el-button>
+          <el-button type="text" icon="el-icon-plus" @click="setGoodNumber(good, 'plus')"></el-button>
+          <el-button type="text" icon="el-icon-delete" @click="deleteGood(good)"></el-button>
         </div>
       </div>
     </div>
@@ -59,9 +41,7 @@
           <el-checkbox v-model="selectAll">全选</el-checkbox>
         </div>
         <div class="clear-car">
-          <el-button type="text" @click="clearShoppingCar" class=""
-            >清空购物车</el-button
-          >
+          <el-button type="text" @click="clearShoppingCar" class="">清空购物车</el-button>
         </div>
       </div>
       <div class="shopping-car-bottom-btns-right">
@@ -77,38 +57,23 @@
           </span>
         </div>
         <div>
-          <button
-            @click="submitOrder"
-            class="shopping-car-bottom-btns-right-submit"
-          >
+          <button @click="submitOrder" class="shopping-car-bottom-btns-right-submit">
             结算
           </button>
         </div>
       </div>
     </div>
-    <el-dialog
-      title="支付"
-      center
-      :visible.sync="payDialogVisible"
-      width="30%"
-      :before-close="() => (payDialogVisible = false)"
-    >
+    <el-dialog title="支付" center :visible.sync="payDialogVisible" width="30%"
+      :before-close="() => (payDialogVisible = false)">
       <div style="display: flex; justify-content: center; align-self: center">
-        <img
-          src="../../assets/pay.png"
-          alt=""
-          style="width: 200px; height: 200px"
-        />
+        <img src="../../assets/pay.png" alt="" style="width: 200px; height: 200px" />
       </div>
       <div style="display: flex; justify-content: flex-end">
-        <el-button
-          @click="
-            () => {
-              payDialogVisible = false;
-            }
-          "
-          >取消</el-button
-        >
+        <el-button @click="
+          () => {
+            payDialogVisible = false;
+          }
+        ">取消</el-button>
         <el-button type="primary" @click="pay">确定</el-button>
       </div>
     </el-dialog>
@@ -250,11 +215,13 @@ export default class ShoppingCar extends Vue {
   flex-direction: column;
   align-items: center;
   overflow: auto;
+
   .shopping-car-boxes {
     margin: 70px 0 80px 0;
     height: 650px;
     width: 1440px;
     max-width: 1440px;
+
     // background: fuchsia;
     .shopping-car-title {
       width: 80%;
@@ -266,32 +233,39 @@ export default class ShoppingCar extends Vue {
       border-bottom: 1px solid #e5e5e5;
       justify-content: space-between;
       text-align: center;
+
       div {
         font-size: 14px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       .shopping-car-title-selectAll {
         width: 10%;
         height: 100%;
       }
+
       .shopping-car-title-goodname {
         width: 30%;
         height: 100%;
       }
+
       .shopping-car-title-goodpricce {
         width: 15%;
         height: 100%;
       }
+
       .shopping-car-title-goodnumber {
         width: 15%;
         height: 100%;
       }
+
       .shopping-car-title-goodcalprice {
         width: 20%;
         height: 100%;
       }
+
       .shopping-car-title-good-btns {
         width: 10%;
         height: 100%;
@@ -307,6 +281,7 @@ export default class ShoppingCar extends Vue {
       font-size: 20px;
       color: #999;
     }
+
     .shopping-car-box {
       width: 90%;
       padding: 0 5%;
@@ -320,11 +295,13 @@ export default class ShoppingCar extends Vue {
       border-radius: 10px;
       box-shadow: 0 0 5px #ccc;
       background: #f5f5f5;
+
       div {
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       .shopping-car-good-checkbox {
         width: 10%;
         height: 100%;
@@ -332,27 +309,32 @@ export default class ShoppingCar extends Vue {
         justify-content: center;
         align-items: center;
       }
+
       .shopping-car-good-goodname {
         width: 30%;
         height: 100%;
         display: flex;
       }
+
       .shopping-car-good-goodprice {
         width: 15%;
         height: 100%;
         font-weight: bold;
       }
+
       .shopping-car-good-goodnumber {
         width: 15%;
         height: 100%;
         font-weight: bold;
       }
+
       .shopping-car-good-goodcalcprice {
         width: 20%;
         height: 100%;
         color: red;
         font-weight: bold;
       }
+
       .shopping-car-good-btns {
         width: 10%;
         height: 100%;
@@ -362,6 +344,7 @@ export default class ShoppingCar extends Vue {
       }
     }
   }
+
   .shopping-car-bottom-btns {
     width: 1440px;
     max-width: 1440px;
@@ -379,24 +362,29 @@ export default class ShoppingCar extends Vue {
       display: flex;
       // justify-content: sb;
       align-items: center;
+
       .clear-car {
         margin-left: 20px;
         line-height: 72px;
       }
     }
+
     .shopping-car-bottom-btns-right {
       width: 30%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       line-height: 72px;
+
       .good-select,
       .sum-cost {
         font-size: 14px;
       }
+
       .sum-cost {
         margin-left: 20px;
       }
+
       .strong {
         margin: 0 5px;
         line-height: 72px;
@@ -404,6 +392,7 @@ export default class ShoppingCar extends Vue {
         font-size: 20px;
         color: #ff6700;
       }
+
       .shopping-car-bottom-btns-right-submit {
         margin-right: 20px;
         width: 74px;
@@ -416,6 +405,7 @@ export default class ShoppingCar extends Vue {
         font-size: 16px;
         cursor: pointer;
       }
+
       .shopping-car-bottom-btns-right-submit:hover {
         background: #f22d00;
       }

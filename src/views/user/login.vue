@@ -13,15 +13,12 @@
       <div class="login-wrapR">
         <div class="login-title">
           <h3>登录</h3>
-          <h6
-            @click="goRegis"
-            style="
+          <h6 @click="goRegis" style="
               position: absolute;
               right: 20px;
               color: #17508c;
               cursor: pointer;
-            "
-          >
+            ">
             注册
           </h6>
         </div>
@@ -55,14 +52,12 @@
             </div> -->
             <div class="login-form-other-btn-wechat">
               <img
-                src="data:image/png;base64,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"
-              />
+                src="data:image/png;base64,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" />
               <div class="login-form-other-btn-wechat-txt">微信账户登录</div>
             </div>
             <div class="login-form-other-btn-alipay">
               <img
-                src="data:image/png;base64,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"
-              />
+                src="data:image/png;base64,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" />
               <div class="login-form-other-btn-alipay-txt">支付宝账号登录</div>
             </div>
           </div>
@@ -78,10 +73,7 @@
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
-            <el-input
-              v-model="regisForm.username"
-              placeholder="请输入用户名"
-            ></el-input>
+            <el-input v-model="regisForm.username" placeholder="请输入用户名"></el-input>
           </div>
         </div>
         <div class="login-form-regis-dialog-content-item">
@@ -91,11 +83,7 @@
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
-            <el-input
-              v-model="regisForm.password"
-              placeholder="请输入密码"
-              type="password"
-            ></el-input>
+            <el-input v-model="regisForm.password" placeholder="请输入密码" type="password"></el-input>
           </div>
         </div>
         <div class="login-form-regis-dialog-content-item">
@@ -105,10 +93,7 @@
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
-            <el-input
-              v-model="regisForm.phonenumber"
-              placeholder="请输入联系电话"
-            ></el-input>
+            <el-input v-model="regisForm.phonenumber" placeholder="请输入联系电话"></el-input>
           </div>
         </div>
         <div class="login-form-regis-dialog-content-item">
@@ -129,10 +114,7 @@
             </div>
           </div>
           <div class="login-form-regis-dialog-content-item-input">
-            <el-input
-              v-model="regisForm.address"
-              placeholder="请输入收货地址"
-            ></el-input>
+            <el-input v-model="regisForm.address" placeholder="请输入收货地址"></el-input>
           </div>
         </div>
       </div>
@@ -248,13 +230,16 @@ export default class Login extends Vue {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.5);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 .login {
   width: 100%;
   height: 100%;
@@ -288,6 +273,7 @@ export default class Login extends Vue {
       width: 40%;
       // padding-top: 20px;
       padding-right: 60px;
+
       .icon {
         display: flex;
         justify-content: center;
@@ -295,6 +281,7 @@ export default class Login extends Vue {
         animation: iconSize 4s infinite ease-in-out;
       }
     }
+
     .login-wrapR {
       width: 550px;
       height: 530px;
@@ -302,6 +289,7 @@ export default class Login extends Vue {
       background: white;
       border: 1px solid #f0f0f0;
       border-radius: 10px;
+
       .login-title {
         position: relative;
         font-size: 24px;
@@ -312,6 +300,7 @@ export default class Login extends Vue {
         justify-content: center;
         align-items: center;
       }
+
       .login-form {
         display: flex;
         flex-direction: column;
@@ -319,6 +308,7 @@ export default class Login extends Vue {
         align-items: center;
         width: 100%;
         margin-top: 20px;
+
         // height: ;
         .login-form-username {
           display: flex;
@@ -328,6 +318,7 @@ export default class Login extends Vue {
           width: 100%;
           height: 50px;
           margin-bottom: 20px;
+
           .login-form-username-text {
             width: 80px;
             height: 100%;
@@ -335,6 +326,7 @@ export default class Login extends Vue {
             text-align: left;
           }
         }
+
         .login-form-password {
           display: flex;
           flex-direction: row;
@@ -343,6 +335,7 @@ export default class Login extends Vue {
           width: 100%;
           height: 50px;
           margin-bottom: 20px;
+
           .login-form-password-text {
             width: 80px;
             height: 100%;
@@ -350,6 +343,7 @@ export default class Login extends Vue {
             text-align: left;
           }
         }
+
         .login-form-check {
           display: flex;
           flex-direction: row;
@@ -369,6 +363,7 @@ export default class Login extends Vue {
           width: 90%;
           height: 50px;
           margin: 20px 0;
+
           button {
             width: 100%;
             height: 100%;
@@ -379,12 +374,14 @@ export default class Login extends Vue {
             outline: none;
             cursor: pointer;
           }
+
           button:active {
             background: #fff;
             color: #000;
             transform: scale(0.9);
           }
         }
+
         .login-form-other {
           width: 80%;
           height: 1px;
@@ -392,6 +389,7 @@ export default class Login extends Vue {
           margin: 20px;
 
           position: relative;
+
           .login-form-other-txt {
             padding: 5px;
             display: block;
@@ -404,6 +402,7 @@ export default class Login extends Vue {
             color: #888;
           }
         }
+
         .login-form-other-btn {
           display: flex;
           flex-direction: row;
@@ -412,6 +411,7 @@ export default class Login extends Vue {
           width: 50%;
           height: 50px;
           margin: 20px 0;
+
           .login-form-other-btn-wechat,
           .login-form-other-btn-alipay {
             display: flex;
@@ -419,11 +419,13 @@ export default class Login extends Vue {
             justify-content: center;
             align-items: center;
             cursor: pointer;
+
             .login-form-other-btn-wechat-txt,
             .login-form-other-btn-alipay-txt {
               font-size: 12px;
             }
           }
+
           img {
             margin-bottom: 10px;
           }
@@ -439,6 +441,7 @@ export default class Login extends Vue {
     align-items: center;
     width: 100%;
     height: 100%;
+
     .login-form-regis-dialog-content-item {
       width: 100%;
       height: 50px;
@@ -447,12 +450,14 @@ export default class Login extends Vue {
       flex-direction: row;
       justify-content: center;
       align-items: center;
+
       .login-form-regis-dialog-content-item-title {
         width: 80px;
         height: 100%;
         line-height: 50px;
         text-align: left;
       }
+
       .login-form-regis-dialog-content-item-input {
         width: 100%;
         height: 100%;
@@ -464,6 +469,7 @@ export default class Login extends Vue {
         justify-content: center;
         align-items: center;
       }
+
       .login-form-regis-dialog-content-item-radio {
         width: 100%;
         height: 100%;
@@ -477,6 +483,7 @@ export default class Login extends Vue {
       }
     }
   }
+
   .login-form-regis-dialog-submit {
     width: 100%;
     height: 100%;
