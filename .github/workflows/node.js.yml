@@ -27,7 +27,6 @@ jobs:
         cache: 'yarn'
     - name: Build
       run: |
-        yarn add -D webpack-cli
         yarn
         npx webpack
         npx eslint --fix ./src
