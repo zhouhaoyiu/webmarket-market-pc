@@ -8,9 +8,6 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-mode:
-  - push
-  - pull_request
 jobs:
   build:
 

@@ -2,9 +2,9 @@ name: NodeJS with Webpack
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x, 16.x]
     
     steps:
     - uses: actions/checkout@v3
@@ -24,6 +24,6 @@ jobs:
 
     - name: Build
       run: |
-        npm install
+        yarn add -D webpack-cli
+        yarn
         npx webpack
-        npx eslint --fix ./src
