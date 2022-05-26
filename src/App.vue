@@ -21,7 +21,7 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
