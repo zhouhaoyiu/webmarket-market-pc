@@ -24,5 +24,6 @@ jobs:
 
     - name: Build
       run: |
-        npx yarn lint
-        npx yarn build
+        yarn
+        yarn lint
+        yarn build
