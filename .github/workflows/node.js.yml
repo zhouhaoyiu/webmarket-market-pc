@@ -27,6 +27,5 @@ jobs:
         cache: 'yarn'
     - name: Build
       run: |
-        yarn
         npx yarn lint
         npx yarn build
