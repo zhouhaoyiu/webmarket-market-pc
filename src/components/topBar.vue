@@ -3,6 +3,10 @@
     <div class="marketName" v-if="marketInfo" @click="$router.push('/home')">
       欢迎来到{{ marketInfo.marketName || "网上商城" }}
     </div>
+    <div>
+      <el-autocomplete class="search" size="small" v-model="searchGood" :fetch-suggestions="GoodSearch"
+        placeholder="请输入搜索内容" :trigger-on-focus="false" @select="handleSelect"> </el-autocomplete>
+    </div>
     <div v-if="$route.fullPath !== '/home'" @click="$router.push('/home')" class="gohome">
       回到首页
     </div>
@@ -94,6 +98,37 @@ export default class TopBar extends Vue {
   public userInfoDialogVisible = false;
   public userInfoEditStatus = false;
 
+  public searchGood = "";
+
+  public GoodSearch(queryString: string, cb: Function) {
+    const good = (this.$store.state.goodsList || []).filter((item: any) => {
+      // 返回商品名称中含有搜索内容的商品，不区分大小写
+      return item && item.goodName.toLowerCase().includes(queryString.toLowerCase());
+    });
+    console.log(good);
+    const result = good.map((item: any) => {
+      return { value: item.goodName, id: item.goodId };
+    });
+    cb(result);
+  }
+
+  public async handleSelect(item: { value: string; id: string }): Promise<any> {
+    if (!item || !item.id) {
+      return;
+    }
+    this.$router.push({
+      path: "/home/detail",
+      query: {
+        goodId: item.id,
+      },
+    });
+    this.searchGood = ''
+    await this.$nextTick(); // 必须等待下一次tick才能获取到el-autocomplete的DOM
+    if(this.$route.path === '/home/detail'){
+      this.$router.go(0);
+    } // 如果是详情页，则需要刷新才可以切换商品信息
+  }
+
   async getMarketInfo(): Promise<void> {
     const res = await this.axios.get("/marketInfo/getMarketInfo");
     (this.marketInfo as unknown) = this._.cloneDeep(
@@ -105,7 +140,7 @@ export default class TopBar extends Vue {
     document.getElementsByTagName(
       "head"
     )[0].innerHTML += `<meta name="keywords" content="${(this.marketInfo as any).marketMeta
-      }">`;
+    }">`;
   }
   async mounted(): Promise<void> {
     await this.getMarketInfo();
@@ -139,12 +174,12 @@ export default class TopBar extends Vue {
     return this.$store.state.userInfo;
   }
 
-  login(): void {
+  public login(): void {
     this.$router.push("/login");
     this.$store.dispatch("setShoppingCar", []);
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem("username");
     localStorage.removeItem("useruuid");
     this.$store.commit("setUserInfo", {});
@@ -171,6 +206,22 @@ export default class TopBar extends Vue {
     margin-left: 150px;
     font-size: 20px;
     cursor: pointer;
+  }
+
+  .search {
+    margin-left: 20px;
+    height: 32px;
+    outline: none;
+    font-size: 14px;
+    color: #666;
+    background: #f7f7f7;
+    .el-input__inner {
+      border: none;
+    }
+
+    .el-input__icon {
+      color: #666;
+    }
   }
 
   .gohome {

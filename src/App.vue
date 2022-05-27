@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <Footer></Footer>
+    <Footer v-if="$route.fullPath === '/home'"></Footer>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default class App extends Vue {
 #app {
   font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  // height: 100vh;
+  height: 100vh;
   overflow: auto;
   width: 100vw;
   display: flex;
