@@ -4,7 +4,7 @@
     <ListBar v-if="$route.fullPath === '/home'"></ListBar>
 
     <div v-if="$route.fullPath === '/home'" class="carousel">
-      <el-carousel height="630px">
+      <el-carousel height="610px">
         <el-carousel-item v-for="(image, index) in marketInfo.marketImages.split(',')" :key="index">
           <img :src="`http://localhost:8090/images/${image}`" alt="" />
         </el-carousel-item>

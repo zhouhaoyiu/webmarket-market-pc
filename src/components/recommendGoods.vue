@@ -1,9 +1,15 @@
 <template>
   <div class="recommend">
     <div class="recommend-title">推荐商品 {{ recommendName }}</div>
-    <div style="display: flex; justify-content: space-between">
-      <div @mousedown="preventDefault()" @click="goGoodDetail(good.goodId)" style="cursor: pointer; user-select: none"
-        v-for="good in recommendGoods.slice(0, 8)" :key="good.goodId">
+    <div style="display: flex; justify-content: space-between;margin-top: 10px;">
+      <div @mousedown="preventDefault()" @click="goGoodDetail(good.goodId)" v-for="good in recommendGoods.slice(0, 8)"
+        :key="good.goodId" style="
+          cursor: pointer;
+          user-select: none;
+          border: 1px solid #eee;
+          padding: 10px;
+          border-radius: 20px;
+        ">
         <el-tooltip class="item" effect="dark" :content="good.goodName" placement="top">
           <img style="width: 100px; height: 100px" :src="`http://localhost:8090/images/${good.goodImages.split(',')[0]
           }`" alt="goods image" />

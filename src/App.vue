@@ -30,5 +30,6 @@ export default class App extends Vue {
   width: 100vw;
   display: flex;
   flex-direction: column;
+  background: $pri; 
 }
 </style>

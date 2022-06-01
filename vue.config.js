@@ -3,6 +3,13 @@ module.exports = {
     port: 8081,
     open: true,
   },
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `@import "@/index.scss";`,
+      },
+    },
+  },
   chainWebpack: config => {
     config
       .plugin('html')
